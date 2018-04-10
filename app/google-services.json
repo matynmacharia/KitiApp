@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "232422261109",
+    "firebase_url": "https://kitiapp-7ea7b.firebaseio.com",
+    "project_id": "kitiapp-7ea7b",
+    "storage_bucket": "kitiapp-7ea7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232422261109:android:df5085c6009342ea",
+        "android_client_info": {
+          "package_name": "app.kiti.com.kitiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232422261109-78ld3tnh1t1imhobrclgrj447irubtpf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.kiti.com.kitiapp",
+            "certificate_hash": "18ff7d4760c41d9a30dada97d60ebb4751e9157c"
+          }
+        },
+        {
+          "client_id": "232422261109-ihvpea6miack2g5ee36fedbq69vp5fk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbNLz0TSH-sLzGRmiaOyYl3Z4RkVn3Ypk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232422261109-ihvpea6miack2g5ee36fedbq69vp5fk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
