@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">KitiApp</string>
+
+    <string name="admob_app_id">ca-app-pub-8033884555637397/9481645411</string>
+    <string name="admob_test_app_id"> ca-app-pub-3940256099942544/6300978111</string>
+
 </resources>

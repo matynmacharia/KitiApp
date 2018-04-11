@@ -19,15 +19,20 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+
 import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.phone_numberEt) EditText phoneNumberEt;
-    @BindView(R.id.otp) EditText otp;
-    @BindView(R.id.loginButton) Button loginButton;
+    @BindView(R.id.phone_numberEt)
+    EditText phoneNumberEt;
+    @BindView(R.id.otp)
+    EditText otp;
+    @BindView(R.id.loginButton)
+    Button loginButton;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String TAG = LoginActivity.class.getSimpleName();
@@ -87,6 +92,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        // last login check
+        if (PreferenceManager.getInstance().isLoggedIn()) {
+            navigateToHomePage();
+            return;
+        }
+
         mAuth = FirebaseAuth.getInstance();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void verifyPhoneNumber(String phone){
+    private void verifyPhoneNumber(String phone) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phone,        // Phone number to verify
                 60,                 // Timeout duration
@@ -117,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             FirebaseUser user = task.getResult().getUser();
                             navigateToHomePage();
+                            PreferenceManager.getInstance().setLoggedIn(true);
                             // ...
                         } else {
                             // Sign in failed, display a message and update the UI
@@ -130,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToHomePage() {
-        Intent homeIntent = new Intent(this,HomeActivity.class);
+        Intent homeIntent = new Intent(this, HomeActivity.class);
         startActivity(homeIntent);
     }
 
