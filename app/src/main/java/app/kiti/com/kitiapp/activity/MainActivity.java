@@ -151,6 +151,8 @@ public class MainActivity extends AppCompatActivity
                 PreferenceManager preferenceManager = PreferenceManager.getInstance();
                 //match with existing token
                 if (!preferenceManager.getUserToken().equals(token) && preferenceManager.isTokenUpdated()) {
+                    Log.d("LoginActivity","Performing logout :- isUpdated:"+preferenceManager.isTokenUpdated());
+
                     performLogout();
                 }
             }

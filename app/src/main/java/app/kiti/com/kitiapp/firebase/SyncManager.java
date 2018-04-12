@@ -105,6 +105,9 @@ public class SyncManager {
 
         l("Creating new user");
 
+        //update pref
+        PreferenceManager.getInstance().saveUserToken(token);
+
         DatabaseReference userRef = database.getReference()
                 .child(FirebaseDataField.USERS)
                 .child(userPhone);
@@ -127,6 +130,7 @@ public class SyncManager {
 
         // set pref
         PreferenceManager.getInstance().tokenUpdatedToFirebase(true);
+
     }
 
     public void setAdClick(String type) {
