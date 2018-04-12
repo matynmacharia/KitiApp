@@ -28,6 +28,12 @@
                 android:id="@+id/about_us"
                 android:icon="@drawable/ic_menu_send"
                 android:title="About Us" />
+
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Logout" />
+
         </menu>
     </item>
 

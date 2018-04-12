@@ -22,6 +22,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
+import app.kiti.com.kitiapp.firebase.SyncManager;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
 import app.kiti.com.kitiapp.R;
 import butterknife.BindView;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private String TAG = LoginActivity.class.getSimpleName();
+    private SyncManager syncManager;
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -94,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        syncManager = new SyncManager();
         // last login check
         if (PreferenceManager.getInstance().isLoggedIn()) {
             navigateToHomePage();
@@ -118,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 mCallbacks);        // OnVerificationStateChangedCallbacks
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
 
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -129,9 +132,13 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
-                            navigateToHomePage();
+                            //save user phone to pref (keeping before important for any sync operation)
+                            Log.d(TAG,"saving user phone "+user.getPhoneNumber());
+                            PreferenceManager.getInstance().setCurrentUserPhone(user.getPhoneNumber());
                             PreferenceManager.getInstance().setLoggedIn(true);
-                            // ...
+                            syncManager.initUserOrUpdateUserLoginOnFirebase();
+                            navigateToHomePage();
+
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -144,8 +151,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToHomePage() {
+
         Intent homeIntent = new Intent(this,MainActivity.class);
         startActivity(homeIntent);
+
     }
 
 }

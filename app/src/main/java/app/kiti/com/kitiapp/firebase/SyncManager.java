@@ -2,6 +2,7 @@ package app.kiti.com.kitiapp.firebase;
 
 import android.gesture.Prediction;
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +28,7 @@ public class SyncManager {
         database = FirebaseDatabase.getInstance();
     }
 
-    public DatabaseReference getBalanceNodeRef(){
+    public DatabaseReference getBalanceNodeRef() {
 
         String userPhone = PreferenceManager.getInstance().getUserPhone();
         if (userPhone.length() == 0)
@@ -38,6 +39,94 @@ public class SyncManager {
                 .child(userPhone)
                 .child(FirebaseDataField.BALANCE);
 
+    }
+
+    public DatabaseReference getUserTokenRef() {
+
+        String userPhone = PreferenceManager.getInstance().getUserPhone();
+        if (userPhone.length() == 0)
+            return null;
+
+        return database.getReference()
+                .child(FirebaseDataField.USERS)
+                .child(userPhone)
+                .child(FirebaseDataField.USER_TOKEN);
+
+    }
+
+    public void initUserOrUpdateUserLoginOnFirebase() {
+
+        final String userPhone = PreferenceManager.getInstance().getUserPhone();
+        if (userPhone.length() == 0)
+            return;
+
+        //Users -> phone
+        database.getReference()
+                .child(FirebaseDataField.USERS)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child(userPhone).exists()) {
+                            //update
+                            updateUserLoginToken(userPhone, generateUserLoginToken());
+
+                        } else {
+                            createNewUser(userPhone , generateUserLoginToken());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        l("error [user init or upate]"+databaseError.toString());
+                    }
+                });
+
+    }
+
+    private void updateUserLoginToken(String userPhone , String token) {
+
+        l("updating user token");
+
+        //update pref
+        PreferenceManager.getInstance().saveUserToken(token);
+
+        database.getReference()
+                .child(FirebaseDataField.USERS)
+                .child(userPhone)
+                .child(FirebaseDataField.USER_TOKEN)
+                .setValue(token);
+
+        // set pref
+        PreferenceManager.getInstance().tokenUpdatedToFirebase(true);
+
+    }
+
+    private void createNewUser(String userPhone , String token) {
+
+        l("Creating new user");
+
+        DatabaseReference userRef = database.getReference()
+                .child(FirebaseDataField.USERS)
+                .child(userPhone);
+
+        userRef.child(FirebaseDataField.USER_TOKEN)
+                .setValue(token);
+
+        userRef.child(FirebaseDataField.BALANCE)
+                .setValue("0");
+
+        userRef.child(FirebaseDataField.CLICKS);
+
+        userRef.child(FirebaseDataField.NAME)
+                .setValue(PreferenceManager.getInstance().getUsername());
+
+        userRef.child(FirebaseDataField.USER_PHONE)
+                .setValue(userPhone);
+
+        userRef.child(FirebaseDataField.TRANSACTIONS);
+
+        // set pref
+        PreferenceManager.getInstance().tokenUpdatedToFirebase(true);
     }
 
     public void setAdClick(String type) {
@@ -181,5 +270,19 @@ public class SyncManager {
         return builder.append(PreferenceManager.getInstance().getUserPhone()).append("_").append(time).toString();
 
     }
+
+    private String generateUserLoginToken() {
+
+        String userPhone = PreferenceManager.getInstance().getUserPhone();
+        String millis = String.valueOf(System.currentTimeMillis());
+        l("generated tokne:"+userPhone + "_" + millis);
+        return userPhone + "_" + millis;
+
+    }
+
+    private void l(String msg){
+        Log.d("SyncManager",msg);
+    }
+
 
 }

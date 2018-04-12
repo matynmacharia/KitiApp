@@ -12,6 +12,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/username_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -20,8 +21,8 @@
 
     <TextView
         android:layout_alignParentEnd="true"
-        android:id="@+id/balance"
-        android:text="100"
+        android:id="@+id/balance_header"
+        android:text="balance"
         android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

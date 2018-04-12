@@ -9,6 +9,7 @@
     <EditText
         android:id="@+id/phone_numberEt"
         android:hint="Phone Number"
+        android:text="+917984853010"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

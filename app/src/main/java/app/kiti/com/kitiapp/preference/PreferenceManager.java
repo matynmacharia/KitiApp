@@ -44,61 +44,79 @@ public class PreferenceManager {
         return preferences.getBoolean("isLoggedIn", false);
     }
 
-    public void setCurrentUserPhone(String userPhone){
-        editor.putString("userPhone",userPhone);
+    public void setCurrentUserPhone(String userPhone) {
+        editor.putString("userPhone", userPhone);
         editor.apply();
     }
 
-    public String getUserPhone(){
-        return preferences.getString("userPhone","");
+    public String getUserPhone() {
+        return preferences.getString("userPhone", "");
     }
 
-    public void putBalance(String balance){
-        editor.putString("balance",balance);
+    public void putBalance(String balance) {
+        editor.putString("balance", balance);
         editor.apply();
     }
 
-    public String getBalance(){
-        return preferences.getString("balance","");
+    public String getBalance() {
+        return preferences.getString("balance", "");
     }
 
-    public void setUsername(String username){
-        editor.putString("username",username);
+    public void setUsername(String username) {
+        editor.putString("username", username);
         editor.apply();
     }
 
-    public String getUsername(){
-        return preferences.getString("username","");
+    public String getUsername() {
+        return preferences.getString("username", "");
     }
 
-    public void setBannerRate(int rate){
-        editor.putInt("banner_rate",rate);
+    public void setBannerRate(int rate) {
+        editor.putInt("banner_rate", rate);
         editor.apply();
     }
 
-    public int getBannerRate(){
-        return preferences.getInt("banner_rate",0);
+    public int getBannerRate() {
+        return preferences.getInt("banner_rate", 0);
     }
 
-    public void setInterstitalRate(int rate){
-        editor.putInt("interstital_rate",rate);
+    public void setInterstitalRate(int rate) {
+        editor.putInt("interstital_rate", rate);
         editor.apply();
     }
 
-    public int getInterstitalRate(){
-        return preferences.getInt("interstital_rate",0);
+    public int getInterstitalRate() {
+        return preferences.getInt("interstital_rate", 0);
     }
 
     public static PreferenceManager getmInstance() {
         return mInstance;
     }
 
-    public void setVideoRate(int rate){
-        editor.putInt("video_rate",rate);
+    public void setVideoRate(int rate) {
+        editor.putInt("video_rate", rate);
         editor.apply();
     }
 
-    public int getVideoRate(){
-        return preferences.getInt("video_rate",0);
+    public int getVideoRate() {
+        return preferences.getInt("video_rate", 0);
+    }
+
+    public void saveUserToken(String token) {
+        editor.putString("userToken", token);
+        editor.apply();
+    }
+
+    public String getUserToken() {
+        return preferences.getString("userToken", "");
+    }
+
+    public void tokenUpdatedToFirebase(boolean updated) {
+        editor.putBoolean("tokenUpdated", updated);
+        editor.apply();
+    }
+
+    public boolean isTokenUpdated() {
+        return preferences.getBoolean("tokenUpdated", false);
     }
 }
