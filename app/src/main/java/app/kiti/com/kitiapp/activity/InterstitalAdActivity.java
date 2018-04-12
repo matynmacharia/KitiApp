@@ -1,4 +1,4 @@
-package app.kiti.com.kitiapp;
+package app.kiti.com.kitiapp.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,10 +9,15 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
+import app.kiti.com.kitiapp.R;
+import app.kiti.com.kitiapp.firebase.SyncManager;
+import app.kiti.com.kitiapp.utils.FirebaseDataField;
+
 public class InterstitalAdActivity extends AppCompatActivity {
 
     public static final String TAG = InterstitalAdActivity.class.getSimpleName();
     private InterstitialAd mInterstitialAd;
+    private SyncManager syncManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class InterstitalAdActivity extends AppCompatActivity {
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(adListener);
+        syncManager = new SyncManager();
 
     }
 
@@ -60,6 +66,8 @@ public class InterstitalAdActivity extends AppCompatActivity {
             // Code to be executed when an ad opens an overlay that
             // covers the screen.
             Log.d(TAG, "Ad Opened");
+            syncManager.setAdClick(FirebaseDataField.INTERSTITAL_AD);
+
         }
 
         @Override

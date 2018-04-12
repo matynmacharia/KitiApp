@@ -3,5 +3,11 @@
 
     <string name="admob_app_id">ca-app-pub-8033884555637397/9481645411</string>
     <string name="admob_test_app_id"> ca-app-pub-3940256099942544/6300978111</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

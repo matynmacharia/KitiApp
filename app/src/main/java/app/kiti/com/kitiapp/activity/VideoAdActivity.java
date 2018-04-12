@@ -1,21 +1,25 @@
-package app.kiti.com.kitiapp;
+package app.kiti.com.kitiapp.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
+import app.kiti.com.kitiapp.R;
+import app.kiti.com.kitiapp.firebase.SyncManager;
+import app.kiti.com.kitiapp.utils.FirebaseDataField;
+
 public class VideoAdActivity extends AppCompatActivity implements RewardedVideoAdListener {
 
     public static final String TAG = VideoAdActivity.class.getSimpleName();
     private RewardedVideoAd mRewardedVideoAd;
+    private SyncManager syncManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,7 @@ public class VideoAdActivity extends AppCompatActivity implements RewardedVideoA
         // Use an activity context to get the rewarded video instance.
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
+        syncManager = new SyncManager();
         loadRewardedVideoAd();
     }
 
@@ -40,6 +45,8 @@ public class VideoAdActivity extends AppCompatActivity implements RewardedVideoA
         Toast.makeText(this, "onRewarded! currency: " + reward.getType() + "  amount: " +
                 reward.getAmount(), Toast.LENGTH_SHORT).show();
         // Reward the user.
+        syncManager.setAdClick(FirebaseDataField.VIDEO_AD);
+        
     }
 
     @Override

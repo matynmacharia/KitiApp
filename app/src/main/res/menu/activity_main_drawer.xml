@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/earning"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Earnings" />
+        <item
+            android:id="@+id/pending"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Pending" />
+        <item
+            android:id="@+id/history"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="History" />
+    </group>
+
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/help"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Help" />
+            <item
+                android:id="@+id/about_us"
+                android:icon="@drawable/ic_menu_send"
+                android:title="About Us" />
+        </menu>
+    </item>
+
+</menu>

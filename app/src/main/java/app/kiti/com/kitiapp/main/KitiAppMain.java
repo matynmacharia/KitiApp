@@ -1,4 +1,4 @@
-package app.kiti.com.kitiapp;
+package app.kiti.com.kitiapp.main;
 
 import android.app.Application;
 import android.content.Context;

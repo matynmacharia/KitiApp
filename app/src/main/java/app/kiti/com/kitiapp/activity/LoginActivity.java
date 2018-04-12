@@ -1,4 +1,4 @@
-package app.kiti.com.kitiapp;
+package app.kiti.com.kitiapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,8 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
+import app.kiti.com.kitiapp.preference.PreferenceManager;
+import app.kiti.com.kitiapp.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -142,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateToHomePage() {
-        Intent homeIntent = new Intent(this, HomeActivity.class);
+        Intent homeIntent = new Intent(this,MainActivity.class);
         startActivity(homeIntent);
     }
 
