@@ -12,17 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.OptionsActivity" />
-        <activity android:name=".activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activity.OptionsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReceiveOtpActivity" android:screenOrientation="portrait">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".activity.BannerAdActivity" />
-        <activity android:name=".activity.InterstitalAdActivity" />
-        <activity android:name=".activity.VideoAdActivity" />
+        <activity android:name=".activity.BannerAdActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.InterstitalAdActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.VideoAdActivity" android:screenOrientation="portrait"/>
 
         <service
             android:name=".scheduler.ShowAdJobService"
@@ -33,9 +29,17 @@
         </service>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.PhoneNumberActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -13,37 +13,31 @@ import butterknife.ButterKnife;
 
 public class OptionsActivity extends AppCompatActivity {
 
-    @BindView(R.id.banner)
-    Button banner;
-    @BindView(R.id.interstital)
-    Button interstital;
-    @BindView(R.id.video)
-    Button video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-
-        banner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toBanner();
-            }
-        });
-        interstital.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toInterst();
-            }
-        });
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toVideoAd();
-            }
-        });
+//
+//        banner.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toBanner();
+//            }
+//        });
+//        interstital.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toInterst();
+//            }
+//        });
+//        video.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toVideoAd();
+//            }
+//        });
 
         testScheduler();
 

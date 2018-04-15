@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/bottombar_container"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/bottomBar_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp" />
+
+            <FrameLayout
+                android:visibility="visible"
+                android:id="@+id/tabIndicatorHome"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/bottomBar_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#818080"
+                android:textSize="24sp" />
+
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/tabIndicatorProfile"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/bottomBar_earning"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#818080"
+                android:textSize="24sp" />
+
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/tabIndicatorEarning"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#ffffff">
+
+            <TextView
+                android:id="@+id/bottomBar_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#818080"
+                android:textSize="24sp" />
+
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/tabIndicatorHistory"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

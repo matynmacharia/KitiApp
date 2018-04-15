@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    tools:context="app.kiti.com.kitiapp.activity.ReceiveOtpActivity">
+
+    <ImageView
+        android:id="@+id/kiti_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="96dp"
+        android:src="@drawable/kiti_logo" />
+
+    <RelativeLayout
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="56dp"
+        android:layout_below="@+id/kiti_logo"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="96dp"
+        android:id="@+id/login_field_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/login_with_phone_caption"
+            android:text="@string/enter_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+        <EditText
+            android:layout_marginTop="24dp"
+            android:background="@drawable/styled_button_white"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/login_with_phone_caption"
+            android:id="@+id/otpEt"
+            android:inputType="phone"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:hint="OTP"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+        <TextView
+            android:visibility="gone"
+            android:textSize="12sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/otpEt"
+            android:id="@+id/auto_detecting_otp_msg"
+            android:layout_width="wrap_content"
+            android:text="Detecting OTP in your phone"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="LOGIN"
+            android:textColor="#ffffff"
+            android:layout_marginTop="36dp"
+            android:layout_below="@+id/otpEt"
+            android:gravity="center"
+            android:background="@drawable/styled_button_green"
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
