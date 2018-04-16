@@ -30,5 +30,9 @@ public class FirebaseDataField {
     public static final String INTERSTITAL_RATE = "InterstitalRate";
     public static final String VIDEO_RATE = "VideoRate";
     public static final String USER_TOKEN = "login_token";
+    public static final String APP_CONTENTS = "AppContents";
+    public static final String FEATURED_CONTENT = "FeaturedContent";
+    public static final String JOKES = "Jokes";
+
 
 }

@@ -1,0 +1,57 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="app.kiti.com.kitiapp.fragments.HomeFragment">
+
+    <RelativeLayout
+        android:background="@color/screen_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <app.kiti.com.kitiapp.banner.AutoSlideBannerView
+            android:id="@+id/bannerSlider"
+            android:layout_width="match_parent"
+            android:layout_height="196dp" />
+
+        <TextView
+            android:id="@+id/jokeCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bannerSlider"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="TRENDING JOKES"
+            android:textColor="#bb000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <app.kiti.com.kitiapp.custom.joke.AutoSlideJokeView
+            android:id="@+id/auto_slide_joke_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/jokeCaption"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/joke_view_scroller_bg" />
+
+        <TextView
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@+id/auto_slide_joke_view"
+            android:layout_marginEnd="64dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/styled_button_green"
+            android:gravity="center"
+            android:text="START EARNING"
+            android:textColor="#ffffff" />
+
+    </RelativeLayout>
+
+</ScrollView>

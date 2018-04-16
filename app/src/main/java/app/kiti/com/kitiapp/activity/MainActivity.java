@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import app.kiti.com.kitiapp.R;
 import app.kiti.com.kitiapp.firebase.SyncManager;
+import app.kiti.com.kitiapp.fragments.HomeFragment;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
 import app.kiti.com.kitiapp.utils.FontManager;
 import butterknife.BindView;
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         attachListeners();
 
+        transactFragment(FRAGMENT_HOME);
+
     }
 
     @Override
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     private void initObjects() {
 
         fragmentManager = getSupportFragmentManager();
-        homeFragment = new Fragment();
+        homeFragment = new HomeFragment();
         profileFragment = new Fragment();
         earningFragment = new Fragment();
         historyFragment = new Fragment();
