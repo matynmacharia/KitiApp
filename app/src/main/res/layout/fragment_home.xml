@@ -40,7 +40,7 @@
             android:background="@drawable/joke_view_scroller_bg" />
 
         <TextView
-            android:id="@+id/login_btn"
+            android:id="@+id/start_earning_btn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_below="@+id/auto_slide_joke_view"

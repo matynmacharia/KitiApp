@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import app.kiti.com.kitiapp.firebase.SyncManager;
 import app.kiti.com.kitiapp.fragments.HomeFragment;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
 import app.kiti.com.kitiapp.utils.FontManager;
+import app.kiti.com.kitiapp.utils.TimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -80,9 +82,19 @@ public class MainActivity extends AppCompatActivity {
         initObjects();
         setupToolbar();
         attachListeners();
-
+        syncConfig();
         transactFragment(FRAGMENT_HOME);
+        testTime();
 
+    }
+
+    public void testTime(){
+        String oldTime = "2018-04-18T20:05:22.175Z";
+        Log.d("TimeTest","Now:"+TimeUtils.getTime());
+        Log.d("TimeTest",TimeUtils.getRelativeTime(oldTime));
+        Log.d("TimeTest","IsPast : "+TimeUtils.isDateTimePast(oldTime));
+        oldTime = "2018-04-18T21:05:22.175Z";
+        Log.d("TimeTest","IsPast : "+TimeUtils.isDateTimePast(oldTime));
     }
 
     @Override
@@ -98,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
         earningFragment = new Fragment();
         historyFragment = new Fragment();
 
+    }
+
+    private void syncConfig(){
+        syncManager.syncConfig();
     }
 
     private void setupToolbar() {

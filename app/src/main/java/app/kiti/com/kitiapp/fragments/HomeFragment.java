@@ -2,6 +2,7 @@ package app.kiti.com.kitiapp.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.kiti.com.kitiapp.R;
+import app.kiti.com.kitiapp.activity.OptionsActivity;
 import app.kiti.com.kitiapp.banner.AutoSlideBannerView;
 import app.kiti.com.kitiapp.custom.joke.AutoSlideJokeView;
 import butterknife.BindView;
@@ -28,6 +30,8 @@ public class HomeFragment extends Fragment {
     AutoSlideBannerView bannerSlider;
     @BindView(R.id.jokeCaption)
     TextView jokeCaption;
+    @BindView(R.id.start_earning_btn)
+    TextView startEarningBtn;
     private Context mContext;
 
     public HomeFragment() {
@@ -51,7 +55,21 @@ public class HomeFragment extends Fragment {
 
         addJokes();
         addBannerImages();
+        attachListeners();
+    }
 
+    private void attachListeners() {
+        startEarningBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoOptionsPage();
+            }
+        });
+    }
+
+    private void gotoOptionsPage() {
+        Intent i = new Intent(mContext, OptionsActivity.class);
+        mContext.startActivity(i);
     }
 
     private void addJokes() {
@@ -77,7 +95,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void addBannerImages(){
+    private void addBannerImages() {
 
         ArrayList<String> imageUrls = new ArrayList<>();
         imageUrls.add("https://www.chitramala.in/wp-content/uploads/2014/09/kajal-agarwal-success-secret.jpg");

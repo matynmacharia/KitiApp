@@ -93,13 +93,13 @@ public class PreferenceManager {
         return mInstance;
     }
 
-    public void setVideoRate(int rate) {
-        editor.putInt("video_rate", rate);
+    public void setVideoRate(long rate) {
+        editor.putLong("video_rate", rate);
         editor.apply();
     }
 
-    public int getVideoRate() {
-        return preferences.getInt("video_rate", 0);
+    public long getVideoRate() {
+        return preferences.getLong("video_rate", 0);
     }
 
     public void saveUserToken(String token) {
@@ -119,4 +119,14 @@ public class PreferenceManager {
     public boolean isTokenUpdated() {
         return preferences.getBoolean("tokenUpdated", false);
     }
+
+    public void saveTimeDifference(String diff) {
+        editor.putString("time_diff",diff);
+        editor.apply();
+    }
+
+    public String getTimeDiff(){
+        return preferences.getString("time_diff","1"); //time is in min
+    }
+
 }

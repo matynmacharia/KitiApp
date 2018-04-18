@@ -16,8 +16,6 @@
         <activity android:name=".activity.ReceiveOtpActivity" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".activity.BannerAdActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.InterstitalAdActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.VideoAdActivity" android:screenOrientation="portrait"/>
 
         <service

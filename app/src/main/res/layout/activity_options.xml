@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/screen_background"
+    android:gravity="center"
+    android:animateLayoutChanges="true"
+    tools:context="app.kiti.com.kitiapp.activity.OptionsActivity">
+
+    <TextView
+        android:enabled="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="64dp"
+        android:paddingEnd="64dp"
+        android:id="@+id/gotoVideoBtn"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:background="@drawable/goto_video_page_btn_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp" />
+
+    <TextView
+        android:background="?selectableItemBackgroundBorderless"
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="4dp"
+        android:paddingTop="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:id="@+id/refresh_btn"
+        android:text="REFRESH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>

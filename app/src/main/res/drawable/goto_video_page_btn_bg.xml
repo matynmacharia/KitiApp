@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true">
+
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <!--left part-->
+            <item android:right="64dp">
+                <shape android:shape="rectangle">
+                    <size android:width="64dp" android:height="10dp" />
+                    <corners
+                        android:bottomLeftRadius="64dp"
+                        android:bottomRightRadius="0dp"
+                        android:topLeftRadius="64dp"
+                        android:topRightRadius="0dp" />
+                    <solid android:color="@color/colorPrimary" />
+                </shape>
+            </item>
+
+            <!--right part-->
+            <item android:left="64dp">
+                <shape android:shape="rectangle">
+                    <size android:width="64dp" android:height="10dp" />
+                    <corners
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="144dp"
+                        android:topLeftRadius="0dp"
+                        android:topRightRadius="0dp" />
+                    <solid android:color="@color/colorPrimary" />
+                </shape>
+            </item>
+
+        </layer-list>
+
+    </item>
+
+    <item android:state_enabled="false">
+
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <!--left part-->
+            <item android:right="64dp">
+                <shape android:shape="rectangle">
+                    <size android:width="64dp" android:height="10dp" />
+                    <corners
+                        android:bottomLeftRadius="64dp"
+                        android:bottomRightRadius="0dp"
+                        android:topLeftRadius="64dp"
+                        android:topRightRadius="0dp" />
+                    <solid android:color="@color/colorPrimaryFaded" />
+                </shape>
+            </item>
+
+            <!--right part-->
+            <item android:left="64dp">
+                <shape android:shape="rectangle">
+                    <size android:width="64dp" android:height="10dp" />
+                    <corners
+                        android:bottomLeftRadius="0dp"
+                        android:bottomRightRadius="144dp"
+                        android:topLeftRadius="0dp"
+                        android:topRightRadius="0dp" />
+                    <solid android:color="@color/colorPrimaryFaded" />
+                </shape>
+            </item>
+
+        </layer-list>
+
+    </item>
+
+</selector>
