@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:background="@color/screen_background"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linked_number_container"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:id="@+id/call_symbol"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text=""
+            android:layout_width="48dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:gravity="center"
+            android:textColor="#f7818181"
+            android:text="LINKED NUMBER: "
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:paddingStart="8dp"
+            android:id="@+id/phone_number"
+            android:gravity="center"
+            android:textColor="#f7151515"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/earning_container"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/linked_number_container"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        android:padding="16dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/total_earned_label"
+            android:textColor="#f7818181"
+            android:text="TOTAL EARNED: "
+            android:layout_width="144dp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:id="@+id/earned"
+            android:layout_toEndOf="@+id/total_earned_label"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_width="108dp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:id="@+id/total_redeemed_label"
+            android:layout_below="@+id/total_earned_label"
+            android:textColor="#f7818181"
+            android:text="TOTAL REDEEMED: "
+            android:layout_width="144dp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:id="@+id/redeemed"
+            android:layout_toEndOf="@+id/total_redeemed_label"
+            android:layout_below="@+id/earned"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_width="108dp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:id="@+id/total_under_request_label"
+            android:layout_below="@+id/total_redeemed_label"
+            android:textColor="#f7818181"
+            android:text="UNDER REQUEST: "
+            android:layout_width="144dp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:id="@+id/under_request"
+            android:layout_toEndOf="@+id/total_under_request_label"
+            android:layout_below="@+id/total_redeemed_label"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_width="108dp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:id="@+id/total_balance_label"
+            android:layout_below="@+id/total_under_request_label"
+            android:textColor="#f7818181"
+            android:text="BALANCE: "
+            android:layout_width="144dp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_toEndOf="@+id/total_under_request_label"
+            android:layout_below="@+id/under_request"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_width="108dp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_height="36dp" />
+
+    </RelativeLayout>
+
+
+    <EditText
+        android:visibility="gone"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/styled_button_white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/earning_container"
+        android:id="@+id/redeemEt"
+        android:inputType="number"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:hint="Enter amount to redeem"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+
+    <TextView
+        android:enabled="false"
+        android:text="REDEEM"
+        android:textColor="#ffffff"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/redeemEt"
+        android:gravity="center"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/goto_video_page_btn_bg"
+        android:id="@+id/redeem_btn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <TextView
+        android:id="@+id/min_to_redeem_msg"
+        android:padding="4dp"
+        android:textColor="#d3797979"
+        android:layout_below="@+id/redeem_btn"
+        android:layout_centerHorizontal="true"
+        android:text="@string/you_can_redeem_after_s"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

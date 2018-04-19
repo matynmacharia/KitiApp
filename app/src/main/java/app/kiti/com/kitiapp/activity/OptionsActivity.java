@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -24,6 +27,10 @@ public class OptionsActivity extends AppCompatActivity {
     TextView gotoVideoBtn;
     @BindView(R.id.refresh_btn)
     TextView refreshBtn;
+    @BindView(R.id.earning_instruction)
+    TextView earningInstruction;
+    @BindView(R.id.adView)
+    AdView adView;
     private String mLastViewedAt;
 
     @Override
@@ -34,11 +41,11 @@ public class OptionsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         syncManager = new SyncManager();
 
-       attachListener();
+        attachListener();
 
     }
 
-    private void attachListener(){
+    private void attachListener() {
 
         gotoVideoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +72,17 @@ public class OptionsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refreshHurdleInfo();
+        initBannerAd();
+    }
+
+    private void initBannerAd() {
+
+        MobileAds.initialize(this,
+                "ca-app-pub-3940256099942544~3347511713");
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
     }
 
     private void toVideoAd() {

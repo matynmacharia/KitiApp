@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
         addJokes();
         addBannerImages();
         attachListeners();
+
     }
 
     private void attachListeners() {

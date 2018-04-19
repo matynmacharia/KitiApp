@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/screen_background"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="16dp"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/earning_history_label"
+        android:textColor="#e7383838"
+        android:paddingBottom="16dp"
+        android:text="Earning History"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <ListView
+        android:id="@+id/earning_history"
+        android:layout_below="@+id/earning_history_label"
+        android:layout_width="match_parent"
+        android:divider="@null"
+        android:dividerHeight="8dp"
+        android:layout_height="match_parent"/>
+
+
+</RelativeLayout>

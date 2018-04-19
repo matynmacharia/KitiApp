@@ -16,9 +16,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import app.kiti.com.kitiapp.R;
 import app.kiti.com.kitiapp.firebase.SyncManager;
+import app.kiti.com.kitiapp.fragments.EarningFragment;
 import app.kiti.com.kitiapp.fragments.HomeFragment;
+import app.kiti.com.kitiapp.fragments.ProfileFragment;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
 import app.kiti.com.kitiapp.utils.FontManager;
 import app.kiti.com.kitiapp.utils.TimeUtils;
@@ -84,18 +90,9 @@ public class MainActivity extends AppCompatActivity {
         attachListeners();
         syncConfig();
         transactFragment(FRAGMENT_HOME);
-        testTime();
 
     }
 
-    public void testTime(){
-        String oldTime = "2018-04-18T20:05:22.175Z";
-        Log.d("TimeTest","Now:"+TimeUtils.getTime());
-        Log.d("TimeTest",TimeUtils.getRelativeTime(oldTime));
-        Log.d("TimeTest","IsPast : "+TimeUtils.isDateTimePast(oldTime));
-        oldTime = "2018-04-18T21:05:22.175Z";
-        Log.d("TimeTest","IsPast : "+TimeUtils.isDateTimePast(oldTime));
-    }
 
     @Override
     public void onBackPressed() {
@@ -106,14 +103,17 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
         homeFragment = new HomeFragment();
-        profileFragment = new Fragment();
-        earningFragment = new Fragment();
+        profileFragment = new ProfileFragment();
+        earningFragment = new EarningFragment();
         historyFragment = new Fragment();
 
     }
 
-    private void syncConfig(){
+    private void syncConfig() {
+
+        validateUserExistenceNode();
         syncManager.syncConfig();
+
     }
 
     private void setupToolbar() {
@@ -235,62 +235,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void validateUserExistenceNode() {
+
+        syncManager.getUserNodeRef().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    performLogout();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void performLogout() {
         // clear pref
         PreferenceManager.getInstance().clearPreferences();
         //nav to login
-        Intent intent = new Intent(this, ReceiveOtpActivity.class);
+        Intent intent = new Intent(this, PhoneNumberActivity.class);
         startActivity(intent);
         finish();
 
     }
-//
-//    private void attachBalanceListener() {
-//
-//        DatabaseReference balanceRef = syncManager.getBalanceNodeRef();
-//        if (balanceRef != null) {
-//            balanceRef.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    String balance = (String) dataSnapshot.getValue();
-//                    //set value to UI
-//                    balanceHeader.setText(balance);
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-//        } else {
-//            //show error
-//        }
-//    }
-//
-//    private void attachLogoutListener() {
-//
-//        DatabaseReference tokenRef = syncManager.getUserTokenRef();
-//        tokenRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                //check token
-//                String token = (String) dataSnapshot.getValue();
-//                PreferenceManager preferenceManager = PreferenceManager.getInstance();
-//                //match with existing token
-//                if (!preferenceManager.getUserToken().equals(token) && preferenceManager.isTokenUpdated()) {
-//                    Log.d("LoginActivity","Performing logout :- isUpdated:"+preferenceManager.isTokenUpdated());
-//
-//                    performLogout();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
 
     private void swapSelection(int newSelectedMenu) {
         if (newSelectedMenu == lastMenuSelection)

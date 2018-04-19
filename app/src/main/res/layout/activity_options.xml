@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/screen_background"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:animateLayoutChanges="true"
     tools:context="app.kiti.com.kitiapp.activity.OptionsActivity">
+
+    <TextView
+        android:paddingStart="16dp"
+        android:textColor="#eb292929"
+        android:textStyle="bold"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:id="@+id/instruction_label"
+        android:text="Instructions : "
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:padding="16dp"
+        android:textColor="#c5292929"
+        android:textSize="16sp"
+        android:layout_below="@+id/instruction_label"
+        android:layout_marginBottom="64dp"
+        android:lineSpacingExtra="2dp"
+        android:id="@+id/earning_instruction"
+        android:text="@string/earning_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:enabled="false"
@@ -18,6 +42,8 @@
         android:id="@+id/gotoVideoBtn"
         android:textSize="14sp"
         android:gravity="center"
+        android:layout_below="@+id/earning_instruction"
+        android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
         android:background="@drawable/goto_video_page_btn_bg"
         android:layout_width="wrap_content"
@@ -33,9 +59,21 @@
         android:paddingBottom="4dp"
         android:id="@+id/refresh_btn"
         android:text="REFRESH"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/gotoVideoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 
 
-</LinearLayout>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/admob_test_app_id">
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>

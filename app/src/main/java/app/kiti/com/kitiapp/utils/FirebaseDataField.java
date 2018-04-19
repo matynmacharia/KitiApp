@@ -15,7 +15,8 @@ public class FirebaseDataField {
     public static final String REQUESTED_AT = "requestedAt";
     public static final String BALANCE = "balance";
     public static final String AMOUNT_UNDER_REQUEST = "amount_under_request";
-    public static final String CLICKS = "clicks";
+    public static final String REDEEMED_AMOUNT = "redeemedAmount";
+    public static final String EARNINGS = "earnings";
     public static final String VIDEO_AD = "videoAd";
     public static final String NAME = "username";
     public static final String USER_PHONE = "userphone";
@@ -34,4 +35,7 @@ public class FirebaseDataField {
     public static final String TIME_DIFF_IN_MIN = "time_diff_in_min";
     public static final String LAST_VIDEO_SEEN_AT = "last_video_seen_at";
     public static final String NEXT_VIDEO_VIEW_EARLIEST_BY_TIME = "next_video_earliest_by";
+    public static final String MIN_TO_REDEEM = "min_to_redeem";
+    public static final String ACTION_TIME = "action_at";
+    public static final String AD_EARN_RATE = "adEarnRate";
 }

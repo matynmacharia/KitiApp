@@ -41,4 +41,27 @@
     </string>
     <string name="banner_image">Banner Image</string>
 
+    <string name="earning_instruction">
+         \u2022 When button gets green, you can enter video session and earn reward.
+        \n\n\u2022 You will have to wait for some time before you can enter the session.
+        \n\n\u2022 Your reward amount might vary from Rs. 1 to Rs. 10 and will depend upon your involvement over time.
+    </string>
+
+    <string name="general_message_before_video">
+        \u2022 Please hold on!
+        \n\u2022 You are going to earn : Rs. %d</string>
+
+    <string name="message_after_earning_reward">
+
+        \u2022 You are doing great! Keep earning rewards.
+        \n\u2022 You can earn more reward after some time.
+        \n\u2022 You can go back and read jokes.
+
+    </string>
+
+
+    <string name="earning_format">\u20B9 %d</string>
+    <string name="you_can_redeem_after_s">You can redeem after %d</string>
+
+
 </resources>

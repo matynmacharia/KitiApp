@@ -129,4 +129,12 @@ public class PreferenceManager {
         return preferences.getString("time_diff","1"); //time is in min
     }
 
+    public void saveMinAmountToRedeem(long min) {
+        editor.putLong("min_to_redeem",min);
+        editor.apply();
+    }
+
+    public long getMinToRedeem(){
+        return preferences.getLong("min_to_redeem",100);
+    }
 }

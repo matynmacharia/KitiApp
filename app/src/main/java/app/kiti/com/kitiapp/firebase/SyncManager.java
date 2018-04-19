@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.util.Date;
 
+import app.kiti.com.kitiapp.models.EarningHolder;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
 import app.kiti.com.kitiapp.utils.FirebaseDataField;
 import app.kiti.com.kitiapp.utils.TimeUtils;
@@ -37,6 +38,19 @@ public class SyncManager {
                 .child(FirebaseDataField.USERS)
                 .child(userPhone)
                 .child(FirebaseDataField.BALANCE);
+
+    }
+
+    public DatabaseReference getAmountUnderProcessNodeRed() {
+
+        String userPhone = PreferenceManager.getInstance().getUserPhone();
+        if (userPhone.length() == 0)
+            return null;
+
+        return database.getReference()
+                .child(FirebaseDataField.USERS)
+                .child(userPhone)
+                .child(FirebaseDataField.AMOUNT_UNDER_REQUEST);
 
     }
 
@@ -74,6 +88,41 @@ public class SyncManager {
                 .child(FirebaseDataField.USERS)
                 .child(userPhone)
                 .child(FirebaseDataField.NEXT_VIDEO_VIEW_EARLIEST_BY_TIME);
+
+    }
+
+    public DatabaseReference getMinToRedeemAmountNodeRef() {
+
+        return database.getReference()
+                .child(FirebaseDataField.CONFIG)
+                .child(FirebaseDataField.MIN_TO_REDEEM);
+
+    }
+
+    public DatabaseReference getRedeemedNodeRed() {
+
+        String userPhone = PreferenceManager.getInstance().getUserPhone();
+        if (userPhone.length() == 0)
+            return null;
+
+        return database.getReference()
+                .child(FirebaseDataField.USERS)
+                .child(userPhone)
+                .child(FirebaseDataField.REDEEMED_AMOUNT);
+
+    }
+
+    public DatabaseReference getVideoEarningListNodeRef(){
+
+        String userPhone = PreferenceManager.getInstance().getUserPhone();
+        if (userPhone.length() == 0)
+            return null;
+
+        return database.getReference()
+                .child(FirebaseDataField.USERS)
+                .child(userPhone)
+                .child(FirebaseDataField.EARNINGS)
+                .child(FirebaseDataField.VIDEO_AD);
 
     }
 
@@ -147,7 +196,10 @@ public class SyncManager {
         userRef.child(FirebaseDataField.AMOUNT_UNDER_REQUEST)
                 .setValue(0);
 
-        userRef.child(FirebaseDataField.CLICKS);
+        userRef.child(FirebaseDataField.REDEEMED_AMOUNT)
+                .setValue(0);
+
+        userRef.child(FirebaseDataField.EARNINGS);
 
         userRef.child(FirebaseDataField.NAME)
                 .setValue(PreferenceManager.getInstance().getUsername());
@@ -167,16 +219,21 @@ public class SyncManager {
         // Users->phone->Clicks->type->time
         String currentDateTimeString = TimeUtils.getTime();
         String userPhone = PreferenceManager.getInstance().getUserPhone();
+        long currentRate = PreferenceManager.getInstance().getVideoRate();
+
         if (userPhone.length() == 0)
             return;
-        //update views list
+
+        EarningHolder earningHolder = new EarningHolder(currentDateTimeString , currentRate);
+
+        //update view time
         database.getReference()
                 .child(FirebaseDataField.USERS)
                 .child(userPhone)
-                .child(FirebaseDataField.CLICKS)
+                .child(FirebaseDataField.EARNINGS)
                 .child(type)
                 .child(String.valueOf(TimeUtils.getMillisFrom(currentDateTimeString)))
-                .setValue("done");
+                .setValue(earningHolder);
 
         //update view time
         database.getReference()
@@ -191,7 +248,6 @@ public class SyncManager {
                 .child(userPhone)
                 .child(FirebaseDataField.NEXT_VIDEO_VIEW_EARLIEST_BY_TIME)
                 .setValue(TimeUtils.getAdvancedTimeFromCurrentTime(currentDateTimeString));
-
 
     }
 
@@ -213,7 +269,7 @@ public class SyncManager {
         redRef.child(FirebaseDataField.REQUESTED_AT).setValue(currentDateTimeString);
 
         //deduct balance
-        addBalance(amount);
+        addBalance(amount * (-1));
         //add to under request field
         updateRedemptionAmountInUserNode(amount);
 
@@ -263,7 +319,7 @@ public class SyncManager {
         database.getReference()
                 .child(FirebaseDataField.USERS)
                 .child(userPhone)
-                .child(FirebaseDataField.AMOUNT)
+                .child(FirebaseDataField.BALANCE)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -291,7 +347,7 @@ public class SyncManager {
         database.getReference()
                 .child(FirebaseDataField.USERS)
                 .child(userPhone)
-                .child(FirebaseDataField.AMOUNT)
+                .child(FirebaseDataField.BALANCE)
                 .setValue(updateBalance);
 
     }
@@ -330,6 +386,23 @@ public class SyncManager {
                     }
                 });
 
+        database.getReference()
+                .child(FirebaseDataField.CONFIG)
+                .child(FirebaseDataField.MIN_TO_REDEEM)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        long min = (long) dataSnapshot.getValue();
+                        PreferenceManager.getInstance().saveMinAmountToRedeem(min);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
     }
 
     public void logJob() {
@@ -356,6 +429,5 @@ public class SyncManager {
     private void l(String msg) {
         Log.d("SyncManager", msg);
     }
-
 
 }

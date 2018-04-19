@@ -3,6 +3,6 @@
     <color name="colorPrimary">#00a854</color>
     <color name="colorPrimaryDark">#00a854</color>
     <color name="colorAccent">#00a854</color>
-    <color name="screen_background">#aff6fdf0</color>
+    <color name="screen_background">#f6fdf0</color>
     <color name="colorPrimaryFaded">#66b18b</color>
 </resources>

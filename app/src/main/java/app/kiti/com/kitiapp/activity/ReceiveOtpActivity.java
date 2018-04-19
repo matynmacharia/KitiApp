@@ -240,9 +240,20 @@ public class ReceiveOtpActivity extends AppCompatActivity {
 
     private void navigateToHomePage() {
 
-        Intent homeIntent = new Intent(this, MainActivity.class);
-        startActivity(homeIntent);
-        finish();
+        showSendingOtpProgressDialog("Initializing....");
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                hideSendingOtpProgressDialog();
+                Intent homeIntent = new Intent(ReceiveOtpActivity.this, MainActivity.class);
+                startActivity(homeIntent);
+                finish();
+
+            }
+        }, 3000);
+
 
     }
 

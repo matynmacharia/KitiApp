@@ -76,6 +76,7 @@ public class PhoneNumberActivity extends AppCompatActivity {
 
         Intent homeIntent = new Intent(this, MainActivity.class);
         startActivity(homeIntent);
+        finish();
 
     }
 

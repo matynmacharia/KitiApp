@@ -89,4 +89,32 @@ public class TimeUtils {
         return  formatter.format(calendar.getTime());
 
     }
+
+    public static String getDateFrom(long millis) {
+
+        DateFormat formatter = new SimpleDateFormat("dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millis);
+        return formatter.format(calendar.getTime());
+
+    }
+
+    public static String getMonthFrom(long millis){
+
+        DateFormat formatter = new SimpleDateFormat("MMMM");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millis);
+        return formatter.format(calendar.getTime());
+
+    }
+
+    public static String getYearFrom(long millis){
+
+        DateFormat formatter = new SimpleDateFormat("yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(millis);
+        return formatter.format(calendar.getTime());
+
+    }
+
 }
