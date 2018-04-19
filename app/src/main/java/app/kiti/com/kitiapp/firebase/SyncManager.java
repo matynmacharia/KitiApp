@@ -11,7 +11,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.util.Date;
 
+import app.kiti.com.kitiapp.R;
 import app.kiti.com.kitiapp.models.EarningHolder;
+import app.kiti.com.kitiapp.models.RedeemRequestModel;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
 import app.kiti.com.kitiapp.utils.FirebaseDataField;
 import app.kiti.com.kitiapp.utils.TimeUtils;
@@ -112,7 +114,7 @@ public class SyncManager {
 
     }
 
-    public DatabaseReference getVideoEarningListNodeRef(){
+    public DatabaseReference getVideoEarningListNodeRef() {
 
         String userPhone = PreferenceManager.getInstance().getUserPhone();
         if (userPhone.length() == 0)
@@ -123,6 +125,31 @@ public class SyncManager {
                 .child(userPhone)
                 .child(FirebaseDataField.EARNINGS)
                 .child(FirebaseDataField.VIDEO_AD);
+
+    }
+
+
+    public DatabaseReference getCompletedRequestNode() {
+
+        String userPhone = PreferenceManager.getInstance().getUserPhone();
+        if (userPhone.length() == 0)
+            return null;
+
+        return database.getReference()
+                .child(FirebaseDataField.COMPLETED_REQ)
+                .child(userPhone);
+
+    }
+
+    public DatabaseReference getPendingRequestNode() {
+
+        String userPhone = PreferenceManager.getInstance().getUserPhone();
+        if (userPhone.length() == 0)
+            return null;
+
+        return database.getReference()
+                .child(FirebaseDataField.REDEMPTION_REQ)
+                .child(userPhone);
 
     }
 
@@ -224,7 +251,7 @@ public class SyncManager {
         if (userPhone.length() == 0)
             return;
 
-        EarningHolder earningHolder = new EarningHolder(currentDateTimeString , currentRate);
+        EarningHolder earningHolder = new EarningHolder(currentDateTimeString, currentRate);
 
         //update view time
         database.getReference()
@@ -253,20 +280,24 @@ public class SyncManager {
 
     public void putRedemptionRequest(long amount) {
 
-        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+        String currentDateTimeString = TimeUtils.getTime();
         String userPhone = PreferenceManager.getInstance().getUserPhone();
         if (userPhone.length() == 0)
             return;
 
-        DatabaseReference redRef =
-                database.getReference()
-                        .child(userPhone)
-                        .child(generateRedeemRequestId());
 
-        //set amount
-        redRef.child(FirebaseDataField.AMOUNT).setValue(amount);
-        redRef.child(FirebaseDataField.REQUEST_ID).setValue(getRequestId(currentDateTimeString));
-        redRef.child(FirebaseDataField.REQUESTED_AT).setValue(currentDateTimeString);
+        RedeemRequestModel redeemRequestModel = new RedeemRequestModel(
+                amount,
+                generateRedeemRequestId(),
+                currentDateTimeString,
+                "PAYTM",
+                userPhone);
+
+        database.getReference()
+                .child(FirebaseDataField.REDEMPTION_REQ)
+                .child(userPhone)
+                .child(generateRedeemRequestId())
+                .setValue(redeemRequestModel);
 
         //deduct balance
         addBalance(amount * (-1));
@@ -305,7 +336,7 @@ public class SyncManager {
     }
 
     private String generateRedeemRequestId() {
-        return "requestMoney_" + TimeUtils.getMillisFrom(TimeUtils.getTime());
+        return "REQ_" + TimeUtils.getMillisFrom(TimeUtils.getTime());
     }
 
     public void addBalance(final long amountToAdd) {
@@ -408,13 +439,6 @@ public class SyncManager {
     public void logJob() {
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
         database.getReference().child("job_test_for_0_to_10_seconds").child(currentDateTimeString).setValue("job Started");
-    }
-
-    private String getRequestId(String time) {
-
-        StringBuilder builder = new StringBuilder();
-        return builder.append(PreferenceManager.getInstance().getUserPhone()).append("_").append(time).toString();
-
     }
 
     private String generateUserLoginToken() {

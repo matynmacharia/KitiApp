@@ -62,6 +62,7 @@
 
     <string name="earning_format">\u20B9 %d</string>
     <string name="you_can_redeem_after_s">You can redeem after %d</string>
+    <string name="default_payment_medium">PAYTM</string>
 
 
 </resources>

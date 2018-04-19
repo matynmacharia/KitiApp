@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:background="@color/screen_background"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/tab_container"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="36dp">
+
+    <TextView
+        android:background="?selectableItemBackground"
+        android:padding="8dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:layout_gravity="center_vertical"
+        android:text="COMPLETED TRANSACTION"
+        android:id="@+id/completed_label"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:background="?selectableItemBackground"
+        android:padding="8dp"
+        android:textColor="#dc1d1d1d"
+        android:textSize="12sp"
+        android:layout_gravity="center_vertical"
+        android:text="PENDING TRANSACTION"
+        android:id="@+id/pending_label"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_below="@+id/tab_container"
+        android:id="@+id/transactions_listView"
+        android:divider="@null"
+        android:dividerHeight="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:visibility="gone"
+        android:textColor="#353535"
+        android:padding="8dp"
+        android:layout_centerInParent="true"
+        android:text="No data available"
+        android:id="@+id/no_data_msg_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

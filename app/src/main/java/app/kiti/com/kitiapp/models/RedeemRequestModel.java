@@ -9,10 +9,14 @@ public class RedeemRequestModel {
     public long amount;
     public String requestId;
     public String requestedAt;
+    public String requestedVia;
+    public String requestOnNumber;
 
-    public RedeemRequestModel(long amount, String reqId, String requestedAt) {
+    public RedeemRequestModel(long amount, String requestId, String requestedAt, String requestedVia, String requestOnNumber) {
         this.amount = amount;
-        this.requestId = reqId;
+        this.requestId = requestId;
         this.requestedAt = requestedAt;
+        this.requestedVia = requestedVia;
+        this.requestOnNumber = requestOnNumber;
     }
 }

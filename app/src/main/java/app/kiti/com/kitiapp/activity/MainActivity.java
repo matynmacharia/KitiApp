@@ -25,6 +25,7 @@ import app.kiti.com.kitiapp.firebase.SyncManager;
 import app.kiti.com.kitiapp.fragments.EarningFragment;
 import app.kiti.com.kitiapp.fragments.HomeFragment;
 import app.kiti.com.kitiapp.fragments.ProfileFragment;
+import app.kiti.com.kitiapp.fragments.TransactionFragment;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
 import app.kiti.com.kitiapp.utils.FontManager;
 import app.kiti.com.kitiapp.utils.TimeUtils;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
         earningFragment = new EarningFragment();
-        historyFragment = new Fragment();
+        historyFragment = new TransactionFragment();
 
     }
 

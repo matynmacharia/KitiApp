@@ -13,6 +13,7 @@ public class FirebaseDataField {
     public static final String REQUEST_ID = "requestId";
     public static final String TRANSACTION_ID = "transactionId";
     public static final String REQUESTED_AT = "requestedAt";
+    public static final String REQUESTED_VIA = "requestedVia";
     public static final String BALANCE = "balance";
     public static final String AMOUNT_UNDER_REQUEST = "amount_under_request";
     public static final String REDEEMED_AMOUNT = "redeemedAmount";
@@ -22,7 +23,7 @@ public class FirebaseDataField {
     public static final String USER_PHONE = "userphone";
     public static final String ACCOUNT_NAME = "accountName";
     public static final String TRANSACTION_TIME = "transactionTime";
-    public static final String PAYTM_NUMBER = "paytmNumber";
+    public static final String REQUESTED_ON_NUMBER = "requestedOnNumber";
     public static final String TRANSACTIONS = "transactions";
     public static final String USERS = "users";
     public static final String RATES = "Rates";
@@ -38,4 +39,6 @@ public class FirebaseDataField {
     public static final String MIN_TO_REDEEM = "min_to_redeem";
     public static final String ACTION_TIME = "action_at";
     public static final String AD_EARN_RATE = "adEarnRate";
+    public static final Object COMPLETED_VIA = "completedVia";
+    public static final Object COMPLETED_ON_NUMBER = "completedOnNumber";
 }
