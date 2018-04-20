@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class ReadingTimeCalculater {
 
-    private final static int wordsPerMinute = 200;
+    private final static int wordsPerMinute = 120;
 
     public static int getSecondsToRead(String text) {
 

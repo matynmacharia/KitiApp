@@ -18,10 +18,14 @@
         android:layout_height="2dp" />
 
     <TextView
-        android:textColor="#1e1e1e"
+        android:textColor="#ffffff"
         android:textSize="14sp"
+        android:paddingTop="4dp"
+        android:paddingStart="8dp"
         android:paddingBottom="4dp"
         android:paddingEnd="8dp"
+        android:text="3 sec"
+        android:background="@drawable/joke_timer_bg"
         android:layout_above="@+id/progress_bar"
         android:layout_alignParentEnd="true"
         android:id="@+id/count_down_text"

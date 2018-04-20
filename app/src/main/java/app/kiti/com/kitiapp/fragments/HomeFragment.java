@@ -6,18 +6,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 import app.kiti.com.kitiapp.R;
 import app.kiti.com.kitiapp.activity.OptionsActivity;
 import app.kiti.com.kitiapp.banner.AutoSlideBannerView;
-import app.kiti.com.kitiapp.banner.BubbleView;
 import app.kiti.com.kitiapp.custom.joke.AutoSlideJokeView;
+import app.kiti.com.kitiapp.firebase.SyncManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -35,6 +41,8 @@ public class HomeFragment extends Fragment {
     TextView startEarningBtn;
     private Context mContext;
 
+    private SyncManager syncManager;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -42,6 +50,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        syncManager = new SyncManager();
+
     }
 
     @Override
@@ -54,9 +64,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        addJokes();
-        addBannerImages();
         attachListeners();
+        synJokes();
+        syncFeaturedImages();
 
     }
 
@@ -74,38 +84,91 @@ public class HomeFragment extends Fragment {
         mContext.startActivity(i);
     }
 
-    private void addJokes() {
+    private void showDefaultJokes() {
 
         ArrayList<String> jokes = new ArrayList<>();
-        jokes.add(mContext.getResources().getString(R.string.joke1));
-        jokes.add(mContext.getResources().getString(R.string.joke2));
-        jokes.add(mContext.getResources().getString(R.string.joke3));
-        jokes.add(mContext.getResources().getString(R.string.joke4));
-        jokes.add(mContext.getResources().getString(R.string.joke5));
-        jokes.add(mContext.getResources().getString(R.string.joke1));
-        jokes.add(mContext.getResources().getString(R.string.joke2));
-        jokes.add(mContext.getResources().getString(R.string.joke3));
-        jokes.add(mContext.getResources().getString(R.string.joke4));
-        jokes.add(mContext.getResources().getString(R.string.joke5));
-        jokes.add(mContext.getResources().getString(R.string.joke1));
-        jokes.add(mContext.getResources().getString(R.string.joke2));
-        jokes.add(mContext.getResources().getString(R.string.joke3));
-        jokes.add(mContext.getResources().getString(R.string.joke4));
-        jokes.add(mContext.getResources().getString(R.string.joke5));
+        String[] default_jokes = mContext.getResources().getStringArray(R.array.jokes);
+        for (int i = 0; i < default_jokes.length; i++) {
+            jokes.add(default_jokes[i]);
+        }
         //set to view
         autoSlideJokeView.setJokes(jokes);
 
     }
 
-    private void addBannerImages() {
+    private void showDefaultBanner() {
 
         ArrayList<String> imageUrls = new ArrayList<>();
-        imageUrls.add("https://www.chitramala.in/wp-content/uploads/2014/09/kajal-agarwal-success-secret.jpg");
-        imageUrls.add("http://imgcdn.raagalahari.com/dec2012/hd/special-chabbis-heroine-kajal-aggarwal/special-chabbis-heroine-kajal-aggarwal6.jpg");
-        imageUrls.add("https://www.chitramala.in/wp-content/uploads/2014/09/kajal-agarwal-success-secret.jpg");
-        imageUrls.add("http://imgcdn.raagalahari.com/dec2012/hd/special-chabbis-heroine-kajal-aggarwal/special-chabbis-heroine-kajal-aggarwal6.jpg");
-
+        String[] default_banners = mContext.getResources().getStringArray(R.array.featured_image);
+        for (int i = 0; i < default_banners.length; i++) {
+            imageUrls.add(default_banners[i]);
+        }
         bannerSlider.setImageUrls(imageUrls);
+
+    }
+
+    private void synJokes() {
+
+        showDefaultJokes();
+
+        syncManager.getJokesNodeRef().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    collectJokes((Map<String, Object>) dataSnapshot.getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void syncFeaturedImages() {
+
+        showDefaultBanner();
+
+        syncManager.getFeaturedContentNodeRef()
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot != null) {
+                            collectFeaturedContent((Map<String, Object>) dataSnapshot.getValue());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+    }
+
+    private void collectFeaturedContent(Map<String, Object> map) {
+
+        ArrayList<String> images = new ArrayList<>();
+        for (Map.Entry<String, Object> objectEntry : map.entrySet()) {
+            images.add((String) objectEntry.getValue());
+        }
+
+        //set to view
+        bannerSlider.setImageUrls(images);
+
+    }
+
+    private void collectJokes(Map<String, Object> map) {
+
+        ArrayList<String> jokes = new ArrayList<>();
+        for (Map.Entry<String, Object> objectEntry : map.entrySet()) {
+            Log.d("HomeFragment", "entry " + objectEntry.toString());
+            jokes.add((String) objectEntry.getValue());
+        }
+
+        //set to view
+        autoSlideJokeView.setJokes(jokes);
 
     }
 

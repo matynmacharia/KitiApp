@@ -195,7 +195,6 @@ public class TransactionFragment extends Fragment {
         }
     }
 
-
     private void showNoCompletedData(boolean show) {
         if (noDataMsgPanel != null) {
             if (show) {
@@ -206,7 +205,6 @@ public class TransactionFragment extends Fragment {
             }
         }
     }
-
 
     private void hideListView() {
         if (transactionsListView != null) {
@@ -231,7 +229,6 @@ public class TransactionFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         }
     }
-
 
     private void collectPendingTransaction(Map<String, Object> pendingTransaction) {
 

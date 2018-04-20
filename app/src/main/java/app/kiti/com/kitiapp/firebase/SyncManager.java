@@ -1,5 +1,6 @@
 package app.kiti.com.kitiapp.firebase;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -129,6 +130,20 @@ public class SyncManager {
 
     }
 
+    public DatabaseReference getFeaturedContentNodeRef(){
+
+        return database.getReference()
+                .child(FirebaseDataField.APP_CONTENTS)
+                .child(FirebaseDataField.FEATURED_CONTENT);
+
+    }
+
+    public DatabaseReference getJokesNodeRef(){
+
+        return database.getReference()
+                .child(FirebaseDataField.APP_CONTENTS)
+                .child(FirebaseDataField.JOKES);
+    }
 
     public DatabaseReference getCompletedRequestNode() {
 
