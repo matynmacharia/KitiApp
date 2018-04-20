@@ -70,6 +70,8 @@ public class PendingTransactionListAdapter extends ArrayAdapter<RedeemRequestMod
         TextView phoneNumber;
         @BindView(R.id.request_id)
         TextView requestId;
+        @BindView(R.id.requestedAmount)
+        TextView requestedAmount;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
@@ -86,7 +88,7 @@ public class PendingTransactionListAdapter extends ArrayAdapter<RedeemRequestMod
             via.setText(redeemRequestModel.requestedVia);
             phoneNumber.setText(redeemRequestModel.requestOnNumber);
             requestId.setText(redeemRequestModel.requestId);
-
+            requestedAmount.setText(String.format("\u20B9 %d" , redeemRequestModel.amount));
         }
     }
 }

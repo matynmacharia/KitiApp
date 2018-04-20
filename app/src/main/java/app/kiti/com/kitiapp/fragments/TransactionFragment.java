@@ -79,8 +79,11 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         fetchCompletedTransaction();
         attachListener();
+
+        syncManager.putCompleteTrasactionTestRequest();
 
     }
 

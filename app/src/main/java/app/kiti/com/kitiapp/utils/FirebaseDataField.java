@@ -23,7 +23,7 @@ public class FirebaseDataField {
     public static final String USER_PHONE = "userphone";
     public static final String ACCOUNT_NAME = "accountName";
     public static final String TRANSACTION_TIME = "transactionTime";
-    public static final String REQUESTED_ON_NUMBER = "requestedOnNumber";
+    public static final String REQUESTED_ON_NUMBER = "requestOnNumber";
     public static final String TRANSACTIONS = "transactions";
     public static final String USERS = "users";
     public static final String RATES = "Rates";
@@ -40,5 +40,5 @@ public class FirebaseDataField {
     public static final String ACTION_TIME = "action_at";
     public static final String AD_EARN_RATE = "adEarnRate";
     public static final Object COMPLETED_VIA = "completedVia";
-    public static final Object COMPLETED_ON_NUMBER = "completedOnNumber";
+    public static final Object COMPLETED_ON_NUMBER = "completeOnNumber";
 }

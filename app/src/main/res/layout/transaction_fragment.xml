@@ -9,7 +9,7 @@
         android:id="@+id/tab_container"
         android:weightSum="2"
         android:layout_width="match_parent"
-        android:layout_height="36dp">
+        android:layout_height="56dp">
 
     <TextView
         android:background="?selectableItemBackground"
@@ -30,6 +30,7 @@
         android:textColor="#dc1d1d1d"
         android:textSize="12sp"
         android:layout_gravity="center_vertical"
+        android:gravity="end"
         android:text="PENDING TRANSACTION"
         android:id="@+id/pending_label"
         android:layout_width="0dp"

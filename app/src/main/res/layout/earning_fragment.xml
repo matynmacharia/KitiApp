@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/screen_background"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:paddingTop="16dp"
+   android:padding="8dp"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/earning_history_label"
-        android:textColor="#e7383838"
-        android:paddingBottom="16dp"
-        android:text="Earning History"
+        android:textSize="12sp"
+        android:layout_marginStart="8dp"
+        android:textColor="#dc1d1d1d"
+        android:text="EARNING HISTORY"
+        android:gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="56dp" />
 
 
     <ListView

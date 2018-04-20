@@ -69,6 +69,9 @@ public class CompletedTransactionListAdapter extends ArrayAdapter<CompletedReque
         TextView phoneNumber;
         @BindView(R.id.transaction_id)
         TextView transactionId;
+        @BindView(R.id.transactionAmount)
+        TextView transactionAmount;
+
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
@@ -85,6 +88,7 @@ public class CompletedTransactionListAdapter extends ArrayAdapter<CompletedReque
             via.setText(completedRequestModel.completedVia);
             phoneNumber.setText(completedRequestModel.completeOnNumber);
             transactionId.setText(completedRequestModel.transactionId);
+            transactionAmount.setText(String.format("\u20B9 %d" , completedRequestModel.amount));
 
         }
     }

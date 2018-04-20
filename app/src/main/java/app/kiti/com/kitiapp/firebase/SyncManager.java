@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import app.kiti.com.kitiapp.R;
+import app.kiti.com.kitiapp.models.CompletedRequestModel;
 import app.kiti.com.kitiapp.models.EarningHolder;
 import app.kiti.com.kitiapp.models.RedeemRequestModel;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
@@ -303,6 +304,26 @@ public class SyncManager {
         addBalance(amount * (-1));
         //add to under request field
         updateRedemptionAmountInUserNode(amount);
+
+    }
+
+    public void putCompleteTrasactionTestRequest(){
+
+        String currentDateTimeString = TimeUtils.getTime();
+        String userPhone = PreferenceManager.getInstance().getUserPhone();
+        if (userPhone.length() == 0)
+            return;
+
+
+        CompletedRequestModel completedRequestModel = new CompletedRequestModel(
+                100,currentDateTimeString,"PAYTM",userPhone,"REQ_1524158578633","txn99887766"
+        );
+
+        database.getReference()
+                .child(FirebaseDataField.COMPLETED_REQ)
+                .child(userPhone)
+                .child("txn99887766")
+                .setValue(completedRequestModel);
 
     }
 
