@@ -22,6 +22,7 @@ import app.kiti.com.kitiapp.R;
 public class BannerPagerAdapter extends PagerAdapter {
     private Context mContext;
     private ArrayList<String> imageUrls;
+    private int size;
 
     public BannerPagerAdapter(Context context) {
         mContext = context;
@@ -30,16 +31,19 @@ public class BannerPagerAdapter extends PagerAdapter {
 
     public void setImageUrls(ArrayList<String> imageUrls) {
         this.imageUrls = imageUrls;
+        this.size = imageUrls.size();
         notifyDataSetChanged();
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.banner_image_view, container, false);
         ImageView bannerIv = view.findViewById(R.id.bannerIv);
         loadImage(bannerIv, imageUrls.get(position));
         container.addView(view);
         return view;
+
     }
 
     @Override
@@ -49,7 +53,7 @@ public class BannerPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return imageUrls.size();
+        return size;
     }
 
     @Override

@@ -13,7 +13,7 @@
         <app.kiti.com.kitiapp.banner.AutoSlideBannerView
             android:id="@+id/bannerSlider"
             android:layout_width="match_parent"
-            android:layout_height="196dp" />
+            android:layout_height="216dp" />
 
         <TextView
             android:id="@+id/jokeCaption"
@@ -22,7 +22,7 @@
             android:layout_below="@+id/bannerSlider"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:text="TRENDING JOKES"
             android:textColor="#bb000000"
             android:textSize="16sp"

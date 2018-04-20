@@ -1,6 +1,5 @@
 package app.kiti.com.kitiapp.banner;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,9 +13,7 @@ import java.util.ArrayList;
 
 import app.kiti.com.kitiapp.R;
 import app.kiti.com.kitiapp.custom.joke.CustomViewPager;
-import app.kiti.com.kitiapp.custom.joke.JokePagerAdapter;
 import app.kiti.com.kitiapp.custom.joke.SlideController;
-import app.kiti.com.kitiapp.utils.ReadingTimeCalculater;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -29,6 +26,8 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
     private static final double SCROLL_DELAY_FACTOR = 10;
     @BindView(R.id.viewPager)
     CustomViewPager viewPager;
+    @BindView(R.id.bubble_view)
+    BubbleView bubbleView;
 
     private Context mContext;
 
@@ -62,6 +61,7 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
 
         viewPager.setAdapter(bannerPagerAdapter);
         viewPager.setScrollDurationFactor(SCROLL_DELAY_FACTOR);
+        viewPager.setPageTransformer(false,new PageTransformer());
         slideController = new SlideController();
         slideController.setSlideEventListener(this);
         disableUserSwipeControl(viewPager);
@@ -75,6 +75,11 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
         int[] times = getScrollingTimes(imageUrls.size());
         slideController.setIntervalOfTick(1000);
         slideController.setTimeIntervals(times);
+
+        //init bubbles
+        bubbleView.setBubbleCount(imageUrls.size());
+        bubbleView.init();
+
         // we can now start sliding
         slideController.start();
 
@@ -82,7 +87,7 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
 
     private int[] getScrollingTimes(int size) {
         int[] times = new int[size];
-        for(int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             times[i] = DEFAULT_IMAGE_SLIDE_DURATION;
         }
         return times;
@@ -96,11 +101,13 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
     @Override
     public void changeSlideTo(int slideNumber) {
         viewPager.setCurrentItem(slideNumber);
+        //change bubble
+        bubbleView.setSelectionIndex(slideNumber);
     }
 
     @Override
     public void progressChangedTo(long timeLeftInMillis, long progressPercent) {
-       // in future, use this to change bubbles
+        // in future, use this to change bubbles
     }
 
     @Override

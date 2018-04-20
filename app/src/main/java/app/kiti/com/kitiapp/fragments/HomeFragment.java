@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import app.kiti.com.kitiapp.R;
 import app.kiti.com.kitiapp.activity.OptionsActivity;
 import app.kiti.com.kitiapp.banner.AutoSlideBannerView;
+import app.kiti.com.kitiapp.banner.BubbleView;
 import app.kiti.com.kitiapp.custom.joke.AutoSlideJokeView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,19 +102,8 @@ public class HomeFragment extends Fragment {
         ArrayList<String> imageUrls = new ArrayList<>();
         imageUrls.add("https://www.chitramala.in/wp-content/uploads/2014/09/kajal-agarwal-success-secret.jpg");
         imageUrls.add("http://imgcdn.raagalahari.com/dec2012/hd/special-chabbis-heroine-kajal-aggarwal/special-chabbis-heroine-kajal-aggarwal6.jpg");
-        imageUrls.add("http://www.indiancinemagallery.com/gallery/kajal-agarwal/Kajal-Agarwal-stills-from-Jilla-movie-(4)3824.JPG");
         imageUrls.add("https://www.chitramala.in/wp-content/uploads/2014/09/kajal-agarwal-success-secret.jpg");
         imageUrls.add("http://imgcdn.raagalahari.com/dec2012/hd/special-chabbis-heroine-kajal-aggarwal/special-chabbis-heroine-kajal-aggarwal6.jpg");
-        imageUrls.add("http://www.indiancinemagallery.com/gallery/kajal-agarwal/Kajal-Agarwal-stills-from-Jilla-movie-(4)3824.JPG");
-        imageUrls.add("https://www.chitramala.in/wp-content/uploads/2014/09/kajal-agarwal-success-secret.jpg");
-        imageUrls.add("http://imgcdn.raagalahari.com/dec2012/hd/special-chabbis-heroine-kajal-aggarwal/special-chabbis-heroine-kajal-aggarwal6.jpg");
-        imageUrls.add("http://www.indiancinemagallery.com/gallery/kajal-agarwal/Kajal-Agarwal-stills-from-Jilla-movie-(4)3824.JPG");
-        imageUrls.add("https://www.chitramala.in/wp-content/uploads/2014/09/kajal-agarwal-success-secret.jpg");
-        imageUrls.add("http://imgcdn.raagalahari.com/dec2012/hd/special-chabbis-heroine-kajal-aggarwal/special-chabbis-heroine-kajal-aggarwal6.jpg");
-        imageUrls.add("http://www.indiancinemagallery.com/gallery/kajal-agarwal/Kajal-Agarwal-stills-from-Jilla-movie-(4)3824.JPG");
-        imageUrls.add("https://www.chitramala.in/wp-content/uploads/2014/09/kajal-agarwal-success-secret.jpg");
-        imageUrls.add("http://imgcdn.raagalahari.com/dec2012/hd/special-chabbis-heroine-kajal-aggarwal/special-chabbis-heroine-kajal-aggarwal6.jpg");
-        imageUrls.add("http://www.indiancinemagallery.com/gallery/kajal-agarwal/Kajal-Agarwal-stills-from-Jilla-movie-(4)3824.JPG");
 
         bannerSlider.setImageUrls(imageUrls);
 

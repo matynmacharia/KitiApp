@@ -19,6 +19,7 @@ public class JokePagerAdapter extends PagerAdapter {
 
     private Context mContext;
     private ArrayList<String> jokes;
+    int size;
 
     public JokePagerAdapter(Context context) {
         mContext = context;
@@ -27,11 +28,13 @@ public class JokePagerAdapter extends PagerAdapter {
 
     public void setJokes(ArrayList<String> jokes) {
         this.jokes = jokes;
+        this.size = jokes.size();
         notifyDataSetChanged();
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.joke_text_view, container, false);
         TextView jokeTv = view.findViewById(R.id.joke_tv);
         jokeTv.setText(jokes.get(position));
@@ -46,7 +49,7 @@ public class JokePagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return jokes.size();
+        return size;
     }
 
     @Override

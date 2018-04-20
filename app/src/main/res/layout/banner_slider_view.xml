@@ -2,12 +2,23 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_height="200dp">
 
     <app.kiti.com.kitiapp.custom.joke.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="256dp"/>
+        android:layout_height="match_parent"/>
+
+    <app.kiti.com.kitiapp.banner.BubbleView
+        android:id="@+id/bubble_view"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>

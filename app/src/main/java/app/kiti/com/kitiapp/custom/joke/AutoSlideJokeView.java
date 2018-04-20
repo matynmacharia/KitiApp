@@ -123,9 +123,9 @@ public class AutoSlideJokeView extends FrameLayout implements SlideController.Sl
         int min = inSecond / 60;
         int sec = inSecond % 60;
         if (inSecond > 60) {
-            return String.format("%d Min %d Sec",min , sec );
-        }else{
-            return String.format("%d Sec",inSecond);
+            return String.format("%d Min %d Sec", min, sec);
+        } else {
+            return String.format("%d Sec", inSecond);
         }
     }
 
@@ -143,4 +143,9 @@ public class AutoSlideJokeView extends FrameLayout implements SlideController.Sl
         });
     }
 
+    public void startSliding() {
+        if (slideController != null) {
+            slideController.start();
+        }
+    }
 }
