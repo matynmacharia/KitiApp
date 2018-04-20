@@ -150,25 +150,26 @@ public class HomeFragment extends Fragment {
     private void collectFeaturedContent(Map<String, Object> map) {
 
         ArrayList<String> images = new ArrayList<>();
-        for (Map.Entry<String, Object> objectEntry : map.entrySet()) {
-            images.add((String) objectEntry.getValue());
+        if (map != null) {
+            for (Map.Entry<String, Object> objectEntry : map.entrySet()) {
+                images.add((String) objectEntry.getValue());
+            }
+            //set to view
+            bannerSlider.setImageUrls(images);
         }
-
-        //set to view
-        bannerSlider.setImageUrls(images);
-
     }
 
     private void collectJokes(Map<String, Object> map) {
 
         ArrayList<String> jokes = new ArrayList<>();
-        for (Map.Entry<String, Object> objectEntry : map.entrySet()) {
-            Log.d("HomeFragment", "entry " + objectEntry.toString());
-            jokes.add((String) objectEntry.getValue());
+        if (map != null) {
+            for (Map.Entry<String, Object> objectEntry : map.entrySet()) {
+                Log.d("HomeFragment", "entry " + objectEntry.toString());
+                jokes.add((String) objectEntry.getValue());
+            }
+            autoSlideJokeView.setJokes(jokes);
         }
-
         //set to view
-        autoSlideJokeView.setJokes(jokes);
 
     }
 

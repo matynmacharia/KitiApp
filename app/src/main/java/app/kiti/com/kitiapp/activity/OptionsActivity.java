@@ -1,7 +1,9 @@
 package app.kiti.com.kitiapp.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ public class OptionsActivity extends AppCompatActivity {
     @BindView(R.id.adView)
     AdView adView;
     private String mLastViewedAt;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,12 @@ public class OptionsActivity extends AppCompatActivity {
         super.onResume();
         refreshHurdleInfo();
         initBannerAd();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        countDownTimer.cancel();
     }
 
     private void initBannerAd() {
@@ -117,33 +126,73 @@ public class OptionsActivity extends AppCompatActivity {
     private void lastViewedAt(String time) {
         mLastViewedAt = time;
         //invalidate button
-        invalidateButton();
-    }
-
-    private void invalidateButton() {
-        if (TimeUtils.isDateTimePast(mLastViewedAt)) {
-            enableButton();
-        } else {
-            disableWithMessage(TimeUtils.getRelativeTime(mLastViewedAt));
+        //invalidateButton();
+        long remaining_millis = TimeUtils.getMillisFrom(mLastViewedAt) - TimeUtils.getMillisFrom(TimeUtils.getTime());
+        if (gotoVideoBtn != null) {
+            startTimer(remaining_millis);
         }
+
     }
 
     private void disableWithMessage(String relativeTimeString) {
 
-        gotoVideoBtn.setText(String.format("You can Earn : %s", relativeTimeString));
-        gotoVideoBtn.setEnabled(false);
-
+        if (gotoVideoBtn != null) {
+            gotoVideoBtn.setText(String.format("You can earn : %s", relativeTimeString));
+            gotoVideoBtn.setEnabled(false);
+        }
     }
 
     private void enableButton() {
 
-        gotoVideoBtn.setText(String.format("Earn Rs. %d", PreferenceManager.getInstance().getVideoRate()));
-        gotoVideoBtn.setEnabled(true);
+        if (gotoVideoBtn != null) {
+            gotoVideoBtn.setText(String.format("Earn Rs. %d", PreferenceManager.getInstance().getVideoRate()));
+            gotoVideoBtn.setEnabled(true);
+        }
+    }
+
+    private void updateButtonText(String text) {
+        if (gotoVideoBtn != null) {
+            gotoVideoBtn.setText(String.format("You can Earn : In %s", text));
+        }
 
     }
 
     private void notViewedYet() {
         enableButton();
     }
+
+    private void startTimer(long remaining_millis) {
+
+        countDownTimer = new CountDownTimer(remaining_millis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                //update button
+                updateButtonText(getFormattedTime(millisUntilFinished));
+            }
+
+            @Override
+            public void onFinish() {
+                //enable button
+                enableButton();
+            }
+        }.start();
+
+    }
+
+    @SuppressLint("DefaultLocale")
+    private String getFormattedTime(long timeLeftInMillis) {
+        //handles 2 cases(we will not have jokes beyond 1 hrs)
+        // 1- 1 Min 10 Sec for(secs > 60)
+        // 2- 30 sec for (secs<=60)
+        int inSecond = (int) (timeLeftInMillis / 1000);
+        int min = inSecond / 60;
+        int sec = inSecond % 60;
+        if (inSecond > 60) {
+            return String.format("%d Min %d Sec", min, sec);
+        } else {
+            return String.format("%d Sec", inSecond);
+        }
+    }
+
 
 }
