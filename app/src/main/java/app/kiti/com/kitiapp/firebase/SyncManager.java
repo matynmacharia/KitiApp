@@ -278,7 +278,7 @@ public class SyncManager {
 
     }
 
-    public void putRedemptionRequest(long amount) {
+    public void putRedemptionRequest(long amount , String phoneToRedeem) {
 
         String currentDateTimeString = TimeUtils.getTime();
         String userPhone = PreferenceManager.getInstance().getUserPhone();
@@ -291,7 +291,7 @@ public class SyncManager {
                 generateRedeemRequestId(),
                 currentDateTimeString,
                 "PAYTM",
-                userPhone);
+                phoneToRedeem);
 
         database.getReference()
                 .child(FirebaseDataField.REDEMPTION_REQ)

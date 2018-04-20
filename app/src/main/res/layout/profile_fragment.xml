@@ -140,10 +140,12 @@
         android:background="@drawable/styled_button_white"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/earning_container"
-        android:id="@+id/redeemEt"
+        android:id="@+id/redeemAmountEt"
         android:inputType="number"
-        android:textSize="14sp"
-        android:gravity="center"
+        android:textSize="16sp"
+        android:lines="1"
+        android:paddingStart="24dp"
+        android:textColor="@color/colorPrimary"
         android:layout_marginStart="36dp"
         android:layout_marginEnd="36dp"
         android:hint="Enter amount to redeem"
@@ -151,12 +153,29 @@
         android:layout_height="48dp" />
 
 
+    <EditText
+        android:id="@+id/phoneToRedeemEt"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignStart="@+id/redeem_btn"
+        android:layout_below="@+id/redeemAmountEt"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/styled_button_white"
+        android:hint="Enter paytm number"
+        android:inputType="phone"
+        android:lines="1"
+        android:paddingStart="24dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:layout_marginEnd="36dp"
+        android:visibility="gone" />
+
     <TextView
         android:enabled="false"
         android:text="REDEEM"
         android:textColor="#ffffff"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/redeemEt"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/phoneToRedeemEt"
         android:gravity="center"
         android:layout_marginStart="36dp"
         android:layout_marginEnd="36dp"
@@ -173,6 +192,33 @@
         android:layout_centerHorizontal="true"
         android:text="@string/you_can_redeem_after_s"
         android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:id="@+id/logout"
+        android:text="LOGOUT"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/help"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/help"
+        android:text="HELP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

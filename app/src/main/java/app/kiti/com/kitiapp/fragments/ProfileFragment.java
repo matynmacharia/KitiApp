@@ -2,6 +2,7 @@ package app.kiti.com.kitiapp.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import app.kiti.com.kitiapp.R;
+import app.kiti.com.kitiapp.activity.PhoneNumberActivity;
 import app.kiti.com.kitiapp.firebase.SyncManager;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
 import app.kiti.com.kitiapp.utils.FontManager;
@@ -64,8 +66,15 @@ public class ProfileFragment extends Fragment {
     SyncManager syncManager;
     @BindView(R.id.min_to_redeem_msg)
     TextView minToRedeemMsg;
-    @BindView(R.id.redeemEt)
-    EditText redeemEt;
+    @BindView(R.id.redeemAmountEt)
+    EditText redeemAmountEt;
+    @BindView(R.id.logout)
+    TextView logout;
+    @BindView(R.id.help)
+    TextView help;
+    @BindView(R.id.phoneToRedeemEt)
+    EditText phoneToRedeemEt;
+
     private String phone_number;
     private Context mContext;
     private long mBalance;
@@ -96,7 +105,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void bindData() {
+
         phoneNumber.setText(phone_number);
+        phoneToRedeemEt.setText(phone_number);
         callSymbol.setTypeface(FontManager.getInstance().getTypeFace());
         redeemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,26 +115,81 @@ public class ProfileFragment extends Fragment {
                 checkAmountAndRedeem();
             }
         });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmLogout();
+            }
+        });
+
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openHelpEmail();
+            }
+        });
+
     }
+
+    private void performLogout() {
+        // clear pref
+        PreferenceManager.getInstance().clearPreferences();
+        //nav to login
+        Intent intent = new Intent(mContext, PhoneNumberActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+
+    }
+
+    private void confirmLogout() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
+                .setTitle("Logout")
+                .setMessage("Do you want to logout ?")
+                .setPositiveButton("Yes, Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        performLogout();
+                    }
+                })
+                .setNegativeButton("No", null);
+
+        builder.show();
+    }
+
+    private void openHelpEmail() {
+
+        String phone_number = PreferenceManager.getInstance().getUserPhone();
+        Intent emailintent = new Intent(Intent.ACTION_SEND);
+        emailintent.setType("plain/text");
+        emailintent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mail.kitiapp@gmail.com"});
+        emailintent.putExtra(Intent.EXTRA_SUBJECT, "[" + phone_number + "] - Help Regarding KitiApp");
+        emailintent.putExtra(Intent.EXTRA_TEXT, "");
+        startActivity(Intent.createChooser(emailintent, "Send mail..."));
+
+    }
+
 
     private void checkAmountAndRedeem() {
 
         //this call will be made only when there is sufficient amount
-        long amountRequestToRedeem = Long.valueOf(redeemEt.getText().toString());
-        if(amountRequestToRedeem >0 ) {
+        long amountRequestToRedeem = Long.valueOf(redeemAmountEt.getText().toString());
+        if (amountRequestToRedeem > 0) {
             if (amountRequestToRedeem <= mBalance) {
                 //confirm redeem amount
                 confirmRedeemAmount(amountRequestToRedeem);
+            }else{
+                Toast.makeText(mContext,"No Enough Balance",Toast.LENGTH_LONG).show();
             }
         }
 
     }
 
-    private void confirmRedeemAmount(final long redeemAmount){
+    private void confirmRedeemAmount(final long redeemAmount) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
                 .setTitle("Redeem")
-                .setMessage("Do you want to redeem : "+redeemAmount)
+                .setMessage("Do you want to redeem : " + redeemAmount)
                 .setPositiveButton("Yes, Redeem", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -137,9 +203,13 @@ public class ProfileFragment extends Fragment {
 
     private void placeRedeemRequest(long redeemAmount) {
 
-        syncManager.putRedemptionRequest(redeemAmount);
-        Toast.makeText(mContext,"Your redeem request placed! Amount will be credited to your linked number soon!",Toast.LENGTH_LONG).show();
-
+        String phoneToRedeem = phoneToRedeemEt.getText().toString();
+        if(phoneToRedeem.length()==13) {
+            syncManager.putRedemptionRequest(redeemAmount , phoneToRedeem);
+            Toast.makeText(mContext, "Your redeem request placed! Amount will be credited to your linked number soon!", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(mContext,"Invalid Number. Use (+91) before number!",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void fetchBalance() {
@@ -259,14 +329,16 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showRedeemBox() {
-        if(redeemEt!=null){
-            redeemEt.setVisibility(View.VISIBLE);
+        if (redeemAmountEt != null) {
+            phoneToRedeemEt.setVisibility(View.VISIBLE);
+            redeemAmountEt.setVisibility(View.VISIBLE);
         }
     }
 
-    private void hideRedeemBox(){
-        if(redeemEt!=null){
-            redeemEt.setVisibility(View.GONE);
+    private void hideRedeemBox() {
+        if (redeemAmountEt != null) {
+            phoneToRedeemEt.setVisibility(View.GONE);
+            redeemAmountEt.setVisibility(View.GONE);
         }
     }
 
