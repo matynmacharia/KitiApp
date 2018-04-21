@@ -236,6 +236,9 @@ public class ProfileFragment extends Fragment {
     //balance for adding up
     private void fetchUnderProcessAmount(final long balance) {
 
+        if(syncManager==null)
+            return;
+
         syncManager.getAmountUnderProcessNodeRed().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -257,6 +260,9 @@ public class ProfileFragment extends Fragment {
 
     private void fetchRedeemed(final long balance, final long amount_under_process) {
 
+        if(syncManager==null)
+            return;
+
         syncManager.getRedeemedNodeRed().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -277,6 +283,9 @@ public class ProfileFragment extends Fragment {
 
     //fetch min to redeem
     private void fetchMinToRedeem() {
+
+        if(syncManager==null)
+            return;
 
         syncManager.getMinToRedeemAmountNodeRef().addValueEventListener(new ValueEventListener() {
             @Override
@@ -318,6 +327,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void invalidateRedeemButton(long balanceAmount) {
+
         long minRequired = PreferenceManager.getInstance().getMinToRedeem();
         if (balanceAmount > minRequired) {
             enableRedeemButton();

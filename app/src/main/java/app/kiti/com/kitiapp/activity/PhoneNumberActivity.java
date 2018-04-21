@@ -46,6 +46,7 @@ public class PhoneNumberActivity extends AppCompatActivity {
     }
 
     private void attachListener() {
+
         getOtpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

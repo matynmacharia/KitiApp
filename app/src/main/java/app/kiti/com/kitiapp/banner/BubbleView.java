@@ -62,15 +62,22 @@ public class BubbleView extends FrameLayout {
     public void setSelectionIndex(int index) {
 
         resetLastSelection();
-        TextView target = (TextView) container.getChildAt(index);
-        target.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
-        this.mLastSelection = index;
-
+        if (container != null) {
+            TextView target = (TextView) container.getChildAt(index);
+            if (target != null) {
+                target.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+                this.mLastSelection = index;
+            }
+        }
     }
 
     private void resetLastSelection() {
-        TextView target = (TextView) container.getChildAt(mLastSelection);
-        target.setTextColor(Color.parseColor("#ffffff"));
+        if (container != null) {
+            TextView target = (TextView) container.getChildAt(mLastSelection);
+            if (target != null) {
+                target.setTextColor(Color.parseColor("#ffffff"));
+            }
+        }
     }
 
     public void init() {
@@ -106,6 +113,10 @@ public class BubbleView extends FrameLayout {
         int padding = PixelUtils.dpToPx(2);
         textView.setPadding(padding, padding, padding, padding);
         textView.setTypeface(FontManager.getInstance().getTypeFace());
+
+        if(container==null)
+            return;
+
         container.addView(
                 textView,
                 i,

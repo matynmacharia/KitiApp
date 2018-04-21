@@ -82,9 +82,7 @@ public class TransactionFragment extends Fragment {
 
         fetchCompletedTransaction();
         attachListener();
-
-        syncManager.putCompleteTrasactionTestRequest();
-
+        // syncManager.putCompleteTrasactionTestRequest();
     }
 
     private void attachListener() {
@@ -145,6 +143,8 @@ public class TransactionFragment extends Fragment {
                 } else {
                     //show no data available
                     hideProgressBar();
+                    //remove from view
+                    setCompletedTransactionList(new ArrayList<CompletedRequestModel>());
                     showNoCompletedData(true);
                 }
             }
@@ -173,6 +173,8 @@ public class TransactionFragment extends Fragment {
                 } else {
                     //show no data available
                     hideProgressBar();
+                    //remove view
+                    setRedeemRequestList(new ArrayList<RedeemRequestModel>());
                     showNoPendingData(true);
                 }
             }
@@ -252,9 +254,29 @@ public class TransactionFragment extends Fragment {
         showListView();
         hideProgressBar();
         Log.d("Transaction", "pending items" + redeemRequestModels.size());
-        pendingTransactionListAdapter.setRedeemRequestModels(redeemRequestModels);
+
+        setRedeemRequestList(redeemRequestModels);
+
+    }
+
+    private void setRedeemRequestList(ArrayList<RedeemRequestModel> redeemRequestModels) {
+
+        if (pendingTransactionListAdapter != null) {
+            pendingTransactionListAdapter.setRedeemRequestModels(redeemRequestModels);
+        }
         if (transactionsListView != null) {
             transactionsListView.setAdapter(pendingTransactionListAdapter);
+        }
+
+    }
+
+    private void setCompletedTransactionList(ArrayList<CompletedRequestModel> completedRequestModels) {
+
+        if (completedTransactionListAdapter != null) {
+            completedTransactionListAdapter.setCompletedRequestModels(completedRequestModels);
+        }
+        if (transactionsListView != null) {
+            transactionsListView.setAdapter(completedTransactionListAdapter);
         }
 
     }
@@ -282,11 +304,7 @@ public class TransactionFragment extends Fragment {
 
         showListView();
         hideProgressBar();
-        completedTransactionListAdapter.setCompletedRequestModels(completedRequestModels);
-        if (transactionsListView != null) {
-            transactionsListView.setAdapter(completedTransactionListAdapter);
-        }
-
+        setCompletedTransactionList(completedRequestModels);
 
     }
 

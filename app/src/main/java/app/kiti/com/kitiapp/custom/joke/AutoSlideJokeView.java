@@ -74,18 +74,18 @@ public class AutoSlideJokeView extends FrameLayout implements SlideController.Sl
         this.jokes = jokes;
         jokePagerAdapter = new JokePagerAdapter(mContext);
         jokePagerAdapter.setJokes(jokes);
-        viewPager.setAdapter(jokePagerAdapter);
-        //set fix time for now
-        ArrayList<Integer> time = getReadingTimes(jokes);
-        slideController.setIntervalOfTick(10);
-        slideController.setTimeIntervals(time);
-        
-        // we can now start sliding
-        if (slideController != null) {
-            slideController.stop();
+        if (viewPager != null) {
+            viewPager.setAdapter(jokePagerAdapter);
+            //set fix time for now
+            ArrayList<Integer> time = getReadingTimes(jokes);
+            if (slideController != null) {
+                slideController.setIntervalOfTick(10);
+                slideController.setTimeIntervals(time);
+                slideController.stop();
+                // we can now start sliding
+                slideController.start();
+            }
         }
-        // we can now start sliding
-        slideController.start();
     }
 
 
@@ -101,12 +101,16 @@ public class AutoSlideJokeView extends FrameLayout implements SlideController.Sl
     }
 
     public void cancelSliding() {
-        slideController.stop();
+        if(slideController!=null) {
+            slideController.stop();
+        }
     }
 
     @Override
     public void changeSlideTo(int slideNumber) {
-        viewPager.setCurrentItem(slideNumber);
+        if(viewPager!=null) {
+            viewPager.setCurrentItem(slideNumber);
+        }
     }
 
     @Override

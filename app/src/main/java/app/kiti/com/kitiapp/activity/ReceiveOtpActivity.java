@@ -60,7 +60,7 @@ public class ReceiveOtpActivity extends AppCompatActivity {
     private Runnable autoDetectionModeDisableRunnable = new Runnable() {
         @Override
         public void run() {
-            if(autoDetectingOtpMsg!=null){
+            if (autoDetectingOtpMsg != null) {
                 autoDetectingOtpMsg.setText("Enter your otp");
             }
         }
@@ -77,7 +77,9 @@ public class ReceiveOtpActivity extends AppCompatActivity {
             // 2 - Auto-retrieval. On some devices Google Play services can automatically
             //     detect the incoming verification SMS and perform verification without
             //     user action.
-            otpEt.setText(credential.getSmsCode());
+            if (otpEt != null) {
+                otpEt.setText(credential.getSmsCode());
+            }
             Log.d(TAG, "onVerificationCompleted:" + credential);
             mHandler.removeCallbacks(autoDetectionModeDisableRunnable);
             signInWithPhoneAuthCredential(credential);
@@ -105,8 +107,12 @@ public class ReceiveOtpActivity extends AppCompatActivity {
             // now need to ask the user to enter the code and then construct a credential
             // by combining the code with a verification ID.
             Log.d(TAG, "onCodeSent:" + verificationId);
-            autoDetectingOtpMsg.setVisibility(View.VISIBLE);
-            mHandler.postDelayed(autoDetectionModeDisableRunnable,5000);
+            if (autoDetectingOtpMsg != null) {
+                autoDetectingOtpMsg.setVisibility(View.VISIBLE);
+            }
+            if (mHandler != null) {
+                mHandler.postDelayed(autoDetectionModeDisableRunnable, 5000);
+            }
             // Save verification ID and resending token so we can use them later
             mVerificationId = verificationId;
             mResendToken = token;
@@ -193,7 +199,9 @@ public class ReceiveOtpActivity extends AppCompatActivity {
     private void verifyPhoneNumber(String phone) {
 
         verificationInProgress = true;
-        autoDetectingOtpMsg.setVisibility(View.GONE);
+        if (autoDetectingOtpMsg != null) {
+            autoDetectingOtpMsg.setVisibility(View.GONE);
+        }
 
         showSendingOtpProgressDialog("Sending OTP to your number...");
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -208,34 +216,36 @@ public class ReceiveOtpActivity extends AppCompatActivity {
 
         showSendingOtpProgressDialog("Logging You in...");
 
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        hideSendingOtpProgressDialog();
-                        if (task.isSuccessful()) {
+        if (mAuth != null) {
+            mAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            hideSendingOtpProgressDialog();
+                            if (task.isSuccessful()) {
 
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithCredential:success");
 
-                            FirebaseUser user = task.getResult().getUser();
-                            //save user phone to pref (keeping before important for any sync operation)
-                            Log.d(TAG, "saving user phone " + user.getPhoneNumber());
-                            PreferenceManager.getInstance().setCurrentUserPhone(user.getPhoneNumber());
-                            PreferenceManager.getInstance().setLoggedIn(true);
-                            syncManager.initUserOrUpdateUserLoginOnFirebase();
-                            navigateToHomePage();
+                                FirebaseUser user = task.getResult().getUser();
+                                //save user phone to pref (keeping before important for any sync operation)
+                                Log.d(TAG, "saving user phone " + user.getPhoneNumber());
+                                PreferenceManager.getInstance().setCurrentUserPhone(user.getPhoneNumber());
+                                PreferenceManager.getInstance().setLoggedIn(true);
+                                syncManager.initUserOrUpdateUserLoginOnFirebase();
+                                navigateToHomePage();
 
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                Toast.makeText(ReceiveOtpActivity.this,"Invalid OTP",Toast.LENGTH_LONG).show();
+                            } else {
+                                // Sign in failed, display a message and update the UI
+                                Log.w(TAG, "signInWithCredential:failure", task.getException());
+                                if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                    // The verification code entered was invalid
+                                    Toast.makeText(ReceiveOtpActivity.this, "Invalid OTP", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void navigateToHomePage() {

@@ -1,5 +1,6 @@
 package app.kiti.com.kitiapp.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment historyFragment;
     private FragmentManager fragmentManager;
     private Typeface typface;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         profileFragment = new ProfileFragment();
         earningFragment = new EarningFragment();
         historyFragment = new TransactionFragment();
+        context = this;
 
     }
 
@@ -127,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
         bottomBarHistory.setTypeface(typface);
 
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        context = null;
     }
 
     private void attachListeners() {
@@ -256,6 +265,9 @@ public class MainActivity extends AppCompatActivity {
     private void performLogout() {
         // clear pref
         PreferenceManager.getInstance().clearPreferences();
+        if (context == null) {
+            return;
+        }
         //nav to login
         Intent intent = new Intent(this, PhoneNumberActivity.class);
         startActivity(intent);

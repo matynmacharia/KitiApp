@@ -73,19 +73,23 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
         viewPager.setAdapter(bannerPagerAdapter);
 
         ArrayList<Integer> times = getScrollingTimes(imageUrls.size());
-        slideController.setIntervalOfTick(1000);
-        slideController.setTimeIntervals(times);
-
-        //init bubbles
-        bubbleView.setBubbleCount(imageUrls.size());
-        bubbleView.init();
-
         if (slideController != null) {
-            slideController.stop();
-        }
-        // we can now start sliding
-        slideController.start();
+            slideController.setIntervalOfTick(1000);
+            slideController.setTimeIntervals(times);
 
+            if (bubbleView != null) {
+                //init bubbles
+                bubbleView.setBubbleCount(imageUrls.size());
+                bubbleView.init();
+            }
+
+            if (slideController != null) {
+                slideController.stop();
+                // we can now start sliding
+                slideController.start();
+            }
+
+        }
     }
 
     private ArrayList<Integer> getScrollingTimes(int size) {
@@ -98,14 +102,20 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
     }
 
     public void cancelSliding() {
-        slideController.stop();
+        if (slideController != null) {
+            slideController.stop();
+        }
     }
 
     @Override
     public void changeSlideTo(int slideNumber) {
-        viewPager.setCurrentItem(slideNumber);
-        //change bubble
-        bubbleView.setSelectionIndex(slideNumber);
+        if(viewPager!=null) {
+            viewPager.setCurrentItem(slideNumber);
+        }
+        if(bubbleView!=null) {
+            //change bubble
+            bubbleView.setSelectionIndex(slideNumber);
+        }
     }
 
     @Override

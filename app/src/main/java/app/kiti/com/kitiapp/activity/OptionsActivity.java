@@ -81,7 +81,9 @@ public class OptionsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        countDownTimer.cancel();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     }
 
     private void initBannerAd() {
@@ -124,6 +126,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     private void lastViewedAt(String time) {
+
         mLastViewedAt = time;
         //invalidate button
         //invalidateButton();
@@ -140,6 +143,7 @@ public class OptionsActivity extends AppCompatActivity {
             gotoVideoBtn.setText(String.format("You can earn : %s", relativeTimeString));
             gotoVideoBtn.setEnabled(false);
         }
+
     }
 
     private void enableButton() {
@@ -148,6 +152,7 @@ public class OptionsActivity extends AppCompatActivity {
             gotoVideoBtn.setText(String.format("Earn Rs. %d", PreferenceManager.getInstance().getVideoRate()));
             gotoVideoBtn.setEnabled(true);
         }
+
     }
 
     private void updateButtonText(String text) {

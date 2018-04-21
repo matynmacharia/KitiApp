@@ -155,7 +155,9 @@ public class HomeFragment extends Fragment {
                 images.add((String) objectEntry.getValue());
             }
             //set to view
-            bannerSlider.setImageUrls(images);
+            if (bannerSlider != null) {
+                bannerSlider.setImageUrls(images);
+            }
         }
     }
 
@@ -167,15 +169,18 @@ public class HomeFragment extends Fragment {
                 Log.d("HomeFragment", "entry " + objectEntry.toString());
                 jokes.add((String) objectEntry.getValue());
             }
-            autoSlideJokeView.setJokes(jokes);
+            if (autoSlideJokeView != null) {
+                autoSlideJokeView.setJokes(jokes);
+            }
         }
         //set to view
 
     }
 
+
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         autoSlideJokeView.cancelSliding();
     }
 
