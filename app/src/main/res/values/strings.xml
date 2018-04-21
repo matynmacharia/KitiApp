@@ -64,6 +64,13 @@
     <string name="you_can_redeem_after_s">You can redeem after %d</string>
     <string name="default_payment_medium">PAYTM</string>
 
+    <string name="message_for_video_failed_to_load">
+        Troubleshooting:\n
+           \u2022 You might be connected to a cyberoam network.
+        \n\u2022 Connect to other network.
+        \n\u2022 Try again after sometime.
+    </string>
+
 
     <string-array name="featured_image">
         <item>

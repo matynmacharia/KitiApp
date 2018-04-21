@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_margin="36dp"
+        android:textColor="#e72d2d2d"
+        android:gravity="center_horizontal"
+        android:text="Please check your internet connectivity."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tryAgain"
+        android:text="Try Again"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/try_again_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

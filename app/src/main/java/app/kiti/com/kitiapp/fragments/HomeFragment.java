@@ -181,7 +181,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        autoSlideJokeView.cancelSliding();
+        //autoSlideJokeView.cancelSliding();
     }
 
     @Override

@@ -2,6 +2,7 @@ package app.kiti.com.kitiapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -209,7 +210,35 @@ public class VideoAdActivity extends AppCompatActivity implements RewardedVideoA
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int errorCode) {
-        onUserNotSeenFullVideo();
+        showVideoLoadError();
+        //onUserNotSeenFullVideo();
+    }
+
+    private void showVideoLoadError() {
+        //hide general message
+        if (generalMessage != null) {
+            generalMessage.setText(getResources().getString(R.string.message_for_video_failed_to_load));
+            generalMessage.setVisibility(View.VISIBLE);
+        }
+
+        //hide loading card
+        if (loadingProgress != null) {
+            loadingProgress.setVisibility(View.GONE);
+        }
+        //show earned card
+        if (earnedCard != null) {
+            earnedCard.setVisibility(View.VISIBLE);
+        }
+        //update earn amount
+        if (earnedMessage != null) {
+            topBanner.setText("Oops!!!");
+            earnedMessage.setText(String.format("Failed to load video. Some wifi blocks videos"));
+        }
+        //show go back button
+        if (goBackBtn != null) {
+            goBackBtn.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

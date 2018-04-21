@@ -1,10 +1,13 @@
 package app.kiti.com.kitiapp.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,12 +31,14 @@ import app.kiti.com.kitiapp.fragments.HomeFragment;
 import app.kiti.com.kitiapp.fragments.ProfileFragment;
 import app.kiti.com.kitiapp.fragments.TransactionFragment;
 import app.kiti.com.kitiapp.preference.PreferenceManager;
+import app.kiti.com.kitiapp.utils.ConnectionUtils;
+import app.kiti.com.kitiapp.utils.ConnectivityErrorDialog;
 import app.kiti.com.kitiapp.utils.FontManager;
 import app.kiti.com.kitiapp.utils.TimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ConnectivityErrorDialog.TryAgainListener {
 
 
     @BindView(R.id.bottomBar_home)
@@ -80,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private Typeface typface;
     private Context context;
+    private NetworkChangeReceiver networkChangeReceiver;
+    private boolean networkChangeReceiverRegistered;
+    private ConnectivityErrorDialog connectivityErrorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public void onBackPressed() {
         showExistAlert();
@@ -110,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
         earningFragment = new EarningFragment();
         historyFragment = new TransactionFragment();
         context = this;
+        networkChangeReceiver = new NetworkChangeReceiver();
+        connectivityErrorDialog = new ConnectivityErrorDialog(this);
+        connectivityErrorDialog.setCancelable(false);
+        connectivityErrorDialog.setTryAgainListener(this);
 
     }
 
@@ -129,6 +140,27 @@ public class MainActivity extends AppCompatActivity {
         bottomBarEarning.setTypeface(typface);
         bottomBarHistory.setTypeface(typface);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!networkChangeReceiverRegistered) {
+            registerReceiver(networkChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+            networkChangeReceiverRegistered = true;
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (networkChangeReceiverRegistered) {
+            unregisterReceiver(networkChangeReceiver);
+            networkChangeReceiverRegistered = false;
+        }
 
     }
 
@@ -333,6 +365,45 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    @Override
+    public void onTryAgain() {
+        if (ConnectionUtils.isConnected(this)) {
+            hideConnectivityDialog();
+            syncConfig();
+        }
+
+    }
+
+    public class NetworkChangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+
+                if (ConnectionUtils.isConnected(MainActivity.this)) {
+                    hideConnectivityDialog();
+                } else {
+                    showConnectivityErrorDialog();
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void showConnectivityErrorDialog() {
+
+        if (connectivityErrorDialog != null) {
+            connectivityErrorDialog.show();
+        }
+    }
+
+    private void hideConnectivityDialog() {
+        if (connectivityErrorDialog != null) {
+            connectivityErrorDialog.dismiss();
+        }
     }
 
 
