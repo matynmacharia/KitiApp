@@ -12,10 +12,22 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        // for debug version, default signing will work
+        debug {}
+        release {
+            keyAlias 'kiti'
+            keyPassword 'kiti.kiti'
+            storeFile file("$rootDir\\kiti.jks")
+            storePassword 'kiti'
+        }
+    }
+
 }
 
 dependencies {

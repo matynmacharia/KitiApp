@@ -9,13 +9,15 @@ import android.util.Log;
 public class ReadingTimeCalculater {
 
     private final static int wordsPerMinute = 120;
+    private final static int MIN_TIME_TO_READ = 8; // 8 seconds
 
     public static int getSecondsToRead(String text) {
 
         int noOfWords = text.split(" ").length;
-        int secToRead = noOfWords*60 / wordsPerMinute;
+        int secToRead = noOfWords * 60 / wordsPerMinute;
         //Log.d("ReadingTime","words: "+noOfWords+" secToRead: "+secToRead);
-        return secToRead;
+        int minTime = secToRead >= MIN_TIME_TO_READ ? secToRead : MIN_TIME_TO_READ;
+        return minTime;
 
     }
 }

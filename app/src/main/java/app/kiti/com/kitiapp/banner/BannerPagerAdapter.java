@@ -71,4 +71,5 @@ public class BannerPagerAdapter extends PagerAdapter {
 
 
     }
+
 }

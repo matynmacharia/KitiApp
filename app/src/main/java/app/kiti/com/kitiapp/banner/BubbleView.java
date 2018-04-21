@@ -87,24 +87,33 @@ public class BubbleView extends FrameLayout {
 
     private void addBubbles() {
 
-        for (int i = 0; i < mBubbleCount; i++) {
-
-            TextView textView = new TextView(mContext);
-            textView.setText(bubble_text);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
-            textView.setTextColor(Color.parseColor("#ffffff"));
-            int padding = PixelUtils.dpToPx(2);
-            textView.setPadding(padding, padding, padding, padding);
-            textView.setTypeface(FontManager.getInstance().getTypeFace());
-            container.addView(
-                    textView,
-                    i,
-                    new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT)
-            );
-
+        if (container != null) {
+            container.removeAllViews();
         }
+
+        for (int i = 0; i < mBubbleCount; i++) {
+            addBubble(i);
+        }
+
+    }
+
+    private void addBubble(int i) {
+
+        TextView textView = new TextView(mContext);
+        textView.setText(bubble_text);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
+        textView.setTextColor(Color.parseColor("#ffffff"));
+        int padding = PixelUtils.dpToPx(2);
+        textView.setPadding(padding, padding, padding, padding);
+        textView.setTypeface(FontManager.getInstance().getTypeFace());
+        container.addView(
+                textView,
+                i,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT)
+        );
+
     }
 
 }

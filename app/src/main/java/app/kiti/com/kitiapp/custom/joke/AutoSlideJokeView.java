@@ -58,37 +58,43 @@ public class AutoSlideJokeView extends FrameLayout implements SlideController.Sl
 
         this.mContext = context;
         jokes = new ArrayList<>();
-        jokePagerAdapter = new JokePagerAdapter(mContext);
+
         View view = LayoutInflater.from(context).inflate(R.layout.joke_slider_view, this);
         ButterKnife.bind(this, view);
 
-        viewPager.setAdapter(jokePagerAdapter);
         viewPager.setScrollDurationFactor(SCROLL_DELAY_FACTOR);
         slideController = new SlideController();
         slideController.setSlideEventListener(this);
         disableUserSwipeControl(viewPager);
+
     }
 
     public void setJokes(ArrayList<String> jokes) {
 
         this.jokes = jokes;
+        jokePagerAdapter = new JokePagerAdapter(mContext);
         jokePagerAdapter.setJokes(jokes);
-
+        viewPager.setAdapter(jokePagerAdapter);
         //set fix time for now
-        int[] time = getReadingTimes(jokes);
+        ArrayList<Integer> time = getReadingTimes(jokes);
         slideController.setIntervalOfTick(10);
         slideController.setTimeIntervals(time);
+        
+        // we can now start sliding
+        if (slideController != null) {
+            slideController.stop();
+        }
         // we can now start sliding
         slideController.start();
-
     }
 
-    private int[] getReadingTimes(ArrayList<String> jokes) {
+
+    private ArrayList<Integer> getReadingTimes(ArrayList<String> jokes) {
         //times should be in millis
         int size = jokes.size();
-        int[] times = new int[size];
+        ArrayList<Integer> times = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            times[i] = ReadingTimeCalculater.getSecondsToRead(jokes.get(i)) * 1000;
+            times.add(ReadingTimeCalculater.getSecondsToRead(jokes.get(i)) * 1000);
         }
 
         return times;

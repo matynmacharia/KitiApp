@@ -55,13 +55,10 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
 
         this.mContext = context;
         bannerUrls = new ArrayList<>();
-        bannerPagerAdapter = new BannerPagerAdapter(mContext);
         View view = LayoutInflater.from(context).inflate(R.layout.banner_slider_view, this);
         ButterKnife.bind(this, view);
-
-        viewPager.setAdapter(bannerPagerAdapter);
         viewPager.setScrollDurationFactor(SCROLL_DELAY_FACTOR);
-        viewPager.setPageTransformer(false,new PageTransformer());
+        viewPager.setPageTransformer(false, new PageTransformer());
         slideController = new SlideController();
         slideController.setSlideEventListener(this);
         disableUserSwipeControl(viewPager);
@@ -71,8 +68,11 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
     public void setImageUrls(ArrayList<String> imageUrls) {
 
         this.bannerUrls = imageUrls;
+        bannerPagerAdapter = new BannerPagerAdapter(mContext);
         bannerPagerAdapter.setImageUrls(imageUrls);
-        int[] times = getScrollingTimes(imageUrls.size());
+        viewPager.setAdapter(bannerPagerAdapter);
+
+        ArrayList<Integer> times = getScrollingTimes(imageUrls.size());
         slideController.setIntervalOfTick(1000);
         slideController.setTimeIntervals(times);
 
@@ -80,15 +80,18 @@ public class AutoSlideBannerView extends FrameLayout implements SlideController.
         bubbleView.setBubbleCount(imageUrls.size());
         bubbleView.init();
 
+        if (slideController != null) {
+            slideController.stop();
+        }
         // we can now start sliding
         slideController.start();
 
     }
 
-    private int[] getScrollingTimes(int size) {
-        int[] times = new int[size];
+    private ArrayList<Integer> getScrollingTimes(int size) {
+        ArrayList<Integer> times = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            times[i] = DEFAULT_IMAGE_SLIDE_DURATION;
+            times.add(DEFAULT_IMAGE_SLIDE_DURATION);
         }
         return times;
 

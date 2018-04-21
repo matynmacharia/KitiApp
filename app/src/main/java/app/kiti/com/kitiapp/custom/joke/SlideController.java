@@ -3,6 +3,8 @@ package app.kiti.com.kitiapp.custom.joke;
 import android.os.CountDownTimer;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by Ankit on 4/15/2018.
  */
@@ -10,7 +12,8 @@ import android.util.Log;
 public class SlideController {
 
     //time are in millis
-    int[] timeIntervals = {1000, 2000, 3000};
+    //int[] timeIntervals = {1000, 2000, 3000};
+    ArrayList<Integer> timeIntervals = new ArrayList<>();
     long intervalOfTick = 10; // 10 millis
     int currentPlayingIndex = 0;
     // this is the total amount of progress bar
@@ -24,7 +27,7 @@ public class SlideController {
     public SlideController() {
     }
 
-    public void setTimeIntervals(int[] timeIntervals) {
+    public void setTimeIntervals(ArrayList<Integer> timeIntervals) {
         this.timeIntervals = timeIntervals;
     }
 
@@ -34,7 +37,7 @@ public class SlideController {
 
     public void start() {
         //check
-        if (timeIntervals.length > 0 && intervalOfTick >= 10) {
+        if (timeIntervals.size() > 0 && intervalOfTick >= 10) {
             playFor(0);
         } else {
             throw new IllegalArgumentException("Invalid slide info. Provide tickInterval>=10 and atleast one timeIntervals");
@@ -54,7 +57,7 @@ public class SlideController {
 
         //send slide number to show
         sendSlideNumber(index);
-        countDownTimer = new CountDownTimer(timeIntervals[index], intervalOfTick) {
+        countDownTimer = new CountDownTimer(timeIntervals.get(index), intervalOfTick) {
             @Override
             public void onTick(long millisUntilFinished) {
                 sendProgressChanged(millisUntilFinished);
@@ -80,8 +83,8 @@ public class SlideController {
 
     private void sendProgressChanged(long millisUntilFinished) {
         if (slideEventListener != null) {
-            timeElapsed = timeIntervals[currentPlayingIndex] - millisUntilFinished;
-            progressPercent = (1000 * timeElapsed) / timeIntervals[currentPlayingIndex];
+            timeElapsed = timeIntervals.get(currentPlayingIndex) - millisUntilFinished;
+            progressPercent = (1000 * timeElapsed) / timeIntervals.get(currentPlayingIndex);
             slideEventListener.progressChangedTo(millisUntilFinished, progressPercent);
         }
     }
@@ -93,7 +96,7 @@ public class SlideController {
     }
 
     private int getNextIndexToPlay(int currentPlayingIndex) {
-        if (currentPlayingIndex == (timeIntervals.length - 1)) {
+        if (currentPlayingIndex == (timeIntervals.size() - 1)) {
             //start from 0
             return 0;
         }
@@ -106,6 +109,7 @@ public class SlideController {
     public void setSlideEventListener(SlideEventListener slideEventListener) {
         this.slideEventListener = slideEventListener;
     }
+
 
     public interface SlideEventListener {
 
