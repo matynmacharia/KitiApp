@@ -302,9 +302,11 @@ public class SyncManager {
             return;
 
 
+        String redemptionRequestId = generateRedeemRequestId();
+
         RedeemRequestModel redeemRequestModel = new RedeemRequestModel(
                 amount,
-                generateRedeemRequestId(),
+                redemptionRequestId,
                 currentDateTimeString,
                 "PAYTM",
                 phoneToRedeem);
@@ -312,7 +314,7 @@ public class SyncManager {
         database.getReference()
                 .child(FirebaseDataField.REDEMPTION_REQ)
                 .child(userPhone)
-                .child(generateRedeemRequestId())
+                .child(redemptionRequestId)
                 .setValue(redeemRequestModel);
 
         //deduct balance
