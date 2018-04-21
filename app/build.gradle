@@ -10,12 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+
 
     signingConfigs {
         // for debug version, default signing will work
@@ -24,9 +19,18 @@ android {
             keyAlias 'kiti'
             keyPassword 'kiti.kiti'
             storeFile file("$rootDir\\kiti.jks")
-            storePassword 'kiti'
+            storePassword 'kiti.kiti'
         }
     }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
 
 }
 
@@ -38,6 +42,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     testImplementation 'junit:junit:4.12'
     implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.google.code.gson:gson:2.8.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     implementation 'com.google.android.gms:play-services-ads:15.0.0'

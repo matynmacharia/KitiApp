@@ -39,6 +39,6 @@ public class FirebaseDataField {
     public static final String MIN_TO_REDEEM = "min_to_redeem";
     public static final String ACTION_TIME = "action_at";
     public static final String AD_EARN_RATE = "adEarnRate";
-    public static final Object COMPLETED_VIA = "completedVia";
-    public static final Object COMPLETED_ON_NUMBER = "completeOnNumber";
+    public static final String COMPLETED_VIA = "completedVia";
+    public static final String COMPLETED_ON_NUMBER = "completeOnNumber";
 }

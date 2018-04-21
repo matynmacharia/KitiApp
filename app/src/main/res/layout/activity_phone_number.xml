@@ -22,12 +22,14 @@
         <RelativeLayout
             android:id="@+id/login_field_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="144dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/kiti_logo"
             android:layout_marginEnd="56dp"
             android:layout_marginStart="56dp"
             android:gravity="center_horizontal|bottom"
-            android:paddingBottom="96dp">
+            android:paddingBottom="72dp">
 
 
             <TextView

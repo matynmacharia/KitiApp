@@ -14,8 +14,39 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
-
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keepattributes InnerClasses
+       -keep class app.kiti.com.kitiapp.models.RedeemRequestModel**
+       -keepclassmembers class app.kiti.com.kitiapp.models.RedeemRequestModel** {
+          *;
+}
+
+-keepattributes InnerClasses
+ -keep class app.kiti.com.kitiapp.models.TransactionModel**
+ -keepclassmembers class app.kiti.com.kitiapp.models.TransactionModel** {
+    *;
+ }
+
+-keepattributes InnerClasses
+ -keep class app.kiti.com.kitiapp.models.CompletedRequestModel**
+ -keepclassmembers class app.kiti.com.kitiapp.models.CompletedRequestModel** {
+    *;
+ }
+
+ -keepattributes InnerClasses
+  -keep class app.kiti.com.kitiapp.models.EarningHolder**
+  -keepclassmembers class app.kiti.com.kitiapp.models.EarningHolder** {
+     *;
+  }
+
+  -keepattributes InnerClasses
+   -keep class app.kiti.com.kitiapp.models.EarningModel**
+   -keepclassmembers class app.kiti.com.kitiapp.models.EarningModel** {
+      *;
+   }
+
+-keepattributes InnerClasses
+-keep class app.kiti.com.kitiapp.utils.FirebaseDataField**
+-keepclassmembers class app.kiti.com.kitiapp.utils.FirebaseDataField** {
+     *;
+}
