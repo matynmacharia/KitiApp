@@ -3,6 +3,7 @@ package app.kiti.com.kitiapp.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -58,7 +59,7 @@ public class VideoAdActivity extends AppCompatActivity implements RewardedVideoA
 
     private void init() {
 
-        MobileAds.initialize(this, getResources().getString(R.string.admob_test_app_id));
+        MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
         // Use an activity context to get the rewarded video instance.
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         mRewardedVideoAd.setRewardedVideoAdListener(this);
@@ -79,7 +80,7 @@ public class VideoAdActivity extends AppCompatActivity implements RewardedVideoA
     private void initBannerAd() {
 
         MobileAds.initialize(this,
-                "ca-app-pub-3940256099942544~3347511713");
+                getResources().getString(R.string.admob_app_id));
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
@@ -87,7 +88,7 @@ public class VideoAdActivity extends AppCompatActivity implements RewardedVideoA
 
 
     private void loadRewardedVideoAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+        mRewardedVideoAd.loadAd(getResources().getString(R.string.real_video_ad_unit),
                 new AdRequest.Builder().build());
     }
 
@@ -211,6 +212,7 @@ public class VideoAdActivity extends AppCompatActivity implements RewardedVideoA
     @Override
     public void onRewardedVideoAdFailedToLoad(int errorCode) {
         showVideoLoadError();
+        Log.d("VideoAdError","Error Code:"+errorCode);
         //onUserNotSeenFullVideo();
     }
 

@@ -109,6 +109,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/admob_test_app_id"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="@string/real_banner_ad_unit"></com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

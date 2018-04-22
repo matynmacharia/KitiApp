@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">KitiApp</string>
 
-    <string name="admob_app_id">ca-app-pub-8033884555637397/9481645411</string>
+    <string name="admob_app_id">ca-app-pub-8033884555637397~9481645411</string>
     <string name="admob_test_app_id"> ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="real_video_ad_unit">ca-app-pub-8033884555637397/2462623104</string>
+    <string name="real_banner_ad_unit">ca-app-pub-8033884555637397/3977641487</string>
+
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
