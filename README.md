@@ -12,7 +12,7 @@ A app for earning reward while you read jokes.
  - You can see your earnings
  - You can browse your Pending and completed transaction
 #### Screenshots:
-<img src="https://github.com/bxute/KitiApp/blob/master/screenshots/login.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/otp.png" width="100px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/home.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/profile.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/earning.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/pending_trans.png" width="160px" height="290px">
+<img src="https://github.com/bxute/KitiApp/blob/master/screenshots/login.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/otp.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/home.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/profile.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/earning.png" width="160px" height="290px"><img src="https://github.com/bxute/KitiApp/blob/master/screenshots/pending_trans.png" width="160px" height="290px">
 
 ##### Designed by: https://github.com/ansarimofid
 
